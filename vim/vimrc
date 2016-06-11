@@ -1,0 +1,7 @@
+set hlsearch
+syntax on
+set ruler "打开状态栏标尺
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set encoding=utf-8

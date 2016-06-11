@@ -82,6 +82,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 alias czsh="vi ~/.zshrc"
 alias cvi="vi ~/.vimrc"
+alias cls="clear"
 alias ll="ls -rtlh"
 
 # alias ohmyzsh="mate ~/.oh-my-zsh"
