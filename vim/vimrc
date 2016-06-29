@@ -5,6 +5,7 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936
 "再次打开光标位置在上次退出时的位置
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif  
 "quickfix store cscope result
