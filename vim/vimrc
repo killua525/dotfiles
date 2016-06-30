@@ -1,4 +1,25 @@
+" 定义快捷键的前缀，即<Leader>
+let mapleader=","
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+" 开启实时搜索功能
+set incsearch
+" " 搜索时大小写不敏感
+set ignorecase
+" " 关闭兼容模式
+set nocompatible
+" " vim 自身命令行模式智能补全
+set wildmenu
+" 总是显示状态栏
+set laststatus=1
+" *.cpp 和 *.h 间切换
+nmap <silent> <Leader>sw :FSHere<cr>
+nnoremap <Leader>hw <C-W>h
+nnoremap <Leader>lw <C-W>l
+nnoremap <Leader>kw <C-W>k
+nnoremap <Leader>jw <C-W>j
 set hlsearch
+filetype on
+filetype plugin on
 syntax on
 set ruler "打开状态栏标尺
 set shiftwidth=4
@@ -12,10 +33,12 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
 
 "hotkey for quickfix
-nmap <C-n> :cnext<CR>
 nmap <C-l> :clist<CR>
-nmap <C-p> :cprev<CR>
 nmap <C-t> :colder<CR>:cc<CR>
+nmap <F6> :cn<cr>
+nmap <F7> :cp<cr>
+nmap LB 0
+nmap LE $
 
 if has("cscope")
 
