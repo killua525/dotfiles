@@ -84,6 +84,7 @@ alias czsh="vi ~/.zshrc"
 alias cvi="vi ~/.vimrc"
 alias cls="clear"
 alias ll="ls -rtlh"
+alias vi="vim"
 #macdown 打开md
 alias -s md=macdown
 alias -s markdown=macdown

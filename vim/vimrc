@@ -1,3 +1,72 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" 打开行号 和相对行号
+set nu
+set relativenumber
+" 打开光标行死高亮
+" set cursorcolumn "CursorColumn
+set cursorline
+highlight CursorLine   cterm=NONE ctermbg=black ctermfg=red guibg=NONE guifg=NONE
+" cterm 表示为原生vim设置样式，设置为NONE表示可以自定义设置。
+" ctermbg 设置终端vim的背景色
+" ctermfg 设置终端vim的前景色
+" guibg 和 guifg
+" 分别是设置gvim的背景色和前景色，本人平时都是使用终端打开vim，所以只是设置终端下的样式
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+"my Bundle here:
+"
+" original repos on github
+Bundle 'kien/ctrlp.vim'
+Bundle 'sukima/xmledit'
+Bundle 'sjl/gundo.vim'
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'klen/python-mode'
+Bundle 'Valloric/ListToggle'
+Bundle 'SirVer/ultisnips'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
+Bundle 't9md/vim-quickhl'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'wincent/command-t'
+Bundle 'scrooloose/nerdtree'
+"..................................
+" vim-scripts repos
+Bundle 'YankRing.vim'
+Bundle 'vcscommand.vim'
+Bundle 'ShowPairs'
+Bundle 'SudoEdit.vim'
+Bundle 'EasyGrep'
+Bundle 'VOoM'
+Bundle 'VimIM'
+"..................................
+" non github repos
+"Bundle 'git://git.wincent.com/command-t.git'
+"......................................
+call vundle#end()            " required
+filetype plugin indent on
+" " To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to
+" auto-approve removal
+
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
 " 定义快捷键的前缀，即<Leader>
 let mapleader=","
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
