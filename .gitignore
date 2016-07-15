@@ -2,3 +2,4 @@ cscope*
 .DS_Store
 .netrwhist
 vim/bundle
+history/

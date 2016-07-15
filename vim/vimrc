@@ -1,13 +1,48 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+filetype on                " required
+filetype plugin on
+syntax on
 
+let mapleader = ","
+" 搜索时大小写不敏感
+set ignorecase
+" 关闭兼容模式
+set nocompatible
+" 开启实时搜索功能
+set incsearch
+" vim 自身命令行模式智能补全
+set wildmenu
+" 总是显示状态栏
+set laststatus=1
 " 打开行号 和相对行号
 set nu
 set relativenumber
+
+set backspace=2
+set foldlevelstart=99
+set hlsearch
+set ruler "打开状态栏标尺
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936
+set showcmd
+set showmatch
+set formatoptions-=r
+"set shell=bash\ -i
+"for markdown preview
+let g:instant_markdown_autostart =0
+nmap <silent> <leader>f :InstantMarkdownPreview<cr>
+
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+"再次打开光标位置在上次退出时的位置
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif  
+
 " 打开光标行死高亮
 " set cursorcolumn "CursorColumn
 set cursorline
-highlight CursorLine   cterm=NONE ctermbg=black ctermfg=red guibg=NONE guifg=NONE
+highlight CursorLine   cterm=NONE ctermbg=darkyellow ctermfg=white guibg=darkyellow guifg=white
 " cterm 表示为原生vim设置样式，设置为NONE表示可以自定义设置。
 " ctermbg 设置终端vim的背景色
 " ctermfg 设置终端vim的前景色
@@ -24,22 +59,23 @@ Bundle 'gmarik/vundle'
 "
 " original repos on github
 Bundle 'kien/ctrlp.vim'
-Bundle 'sukima/xmledit'
+Bundle 'scrooloose/nerdtree'
 Bundle 'sjl/gundo.vim'
 Bundle 'jiangmiao/auto-pairs'
-Bundle 'klen/python-mode'
 Bundle 'Valloric/ListToggle'
 Bundle 'SirVer/ultisnips'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 't9md/vim-quickhl'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'wincent/command-t'
-Bundle 'scrooloose/nerdtree'
+Bundle 'suan/vim-instant-markdown'
+Bundle 'sukima/xmledit'
+Bundle 'klen/python-mode'
 "..................................
 " vim-scripts repos
 Bundle 'YankRing.vim'
+Bundle 'Vundle.vim'
 Bundle 'vcscommand.vim'
 Bundle 'ShowPairs'
 Bundle 'SudoEdit.vim'
@@ -52,9 +88,7 @@ Bundle 'VimIM'
 "......................................
 call vundle#end()            " required
 filetype plugin indent on
-" " To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
+" To ignore plugin indent changes, instead use:
 " Brief help
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just
@@ -66,48 +100,17 @@ filetype plugin indent on
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+" setting for YankRing.Vim
+let g:yankring_history_dir = '~/.vim/history'
 
-" 定义快捷键的前缀，即<Leader>
-let mapleader=","
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
-" 开启实时搜索功能
-set incsearch
-" " 搜索时大小写不敏感
-set ignorecase
-" " 关闭兼容模式
-set nocompatible
-" " vim 自身命令行模式智能补全
-set wildmenu
-" 总是显示状态栏
-set laststatus=1
+
 " *.cpp 和 *.h 间切换
 nmap <silent> <Leader>sw :FSHere<cr>
-nnoremap <Leader>hw <C-W>h
-nnoremap <Leader>lw <C-W>l
-nnoremap <Leader>kw <C-W>k
-nnoremap <Leader>jw <C-W>j
-set hlsearch
-filetype on
-filetype plugin on
-syntax on
-set ruler "打开状态栏标尺
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set encoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936
-"再次打开光标位置在上次退出时的位置
-au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif  
 "quickfix store cscope result
 set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
-
-"hotkey for quickfix
-nmap <C-l> :clist<CR>
-nmap <C-t> :colder<CR>:cc<CR>
-nmap <F6> :cn<cr>
-nmap <F7> :cp<cr>
-nmap LB 0
-nmap LE $
+" for nerd tree
+nmap <F2> :NERDTree<CR>
+nmap <F3> :CtrlP<CR>
 
 if has("cscope")
 
