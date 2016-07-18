@@ -22,9 +22,8 @@ function zsh()
 {
 if [ ! -a $HOME/.zshrc ]
 then 
-	clonedotfile
 	clonezsh
-	ln -s $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
+	ln -s $PWD/zsh/zshrc $HOME/.zshrc
 fi
 return 0;
 }
@@ -32,9 +31,8 @@ function vim()
 {
 if [ ! -a $HOME/.vimrc ];
 then 
-	clonedotfile
-	ln -s $HOME/.dotfiles/vim/vimrc $HOME/.vimrc
-	ln -s $HOME/.dotfiles/vim $HOME/.vim
+	ln -s $PWD/vim/vimrc $HOME/.vimrc
+	ln -s $PWD/vim $HOME/.vim
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 }
@@ -54,16 +52,4 @@ then
 	zsh
 fi
 }
-#rm ~/.zshrc
-#ln -s $PWD/zsh/zshrc ~/.zshrc
-#fuction vim()
-#{
-#	echo vim;
-#	return 0;
-#}
-#fuction zsh()
-#{
-#	echo vim;
-#	return 0;
-#}
 main $*
