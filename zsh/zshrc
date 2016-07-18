@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/wangjianli/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -42,8 +42,6 @@ ZSH_THEME="robbyrussell"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="mm/dd/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -53,8 +51,8 @@ plugins=(brew sudo zsh_reload git python autojump docker cp)
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-# export MANPATH="/usr/local/man:$MANPATH"
+export PATH=.:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
+export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -96,12 +94,6 @@ alias -s rb=mate
 alias -s html=mate
 alias -s yml=mate
 
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-# PATH
-export PATH=/usr/local/share/python:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
-# export PYTHONPATH=$PYTHONPATH
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # Virtual Environment
 #export WORKON_HOME=$HOME/.virtualenvs
 #export PROJECT_HOME=$HOME/Projects
@@ -116,8 +108,6 @@ function mkcd() { mkdir -p "$@" && cd "$_"; }
 
 # Aliases
 alias cppcompile='c++ -std=c++11 -stdlib=libc++'
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-docker-machine env default
-eval $(docker-machine env default)
+alias dockerenv="\
+docker-machine env default && \
+eval $(docker-machine env default)"

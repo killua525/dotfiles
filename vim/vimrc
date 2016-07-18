@@ -1,6 +1,77 @@
-filetype on                " required
+" set the runtime path to include Vundle and initialize
+" git clone https://github.com/VundleVim/Vundle.vim.git  ~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" let Vundle manage Vundle
+"Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
+
+"my Bundle here:
+" original repos on github
+Bundle 'kien/ctrlp.vim'
+Bundle 'derekwyatt/vim-fswitch'
+Bundle 'scrooloose/nerdtree'
+Bundle 'jiangmiao/auto-pairs'
+Plugin 'altercation/vim-colors-solarized'
+Bundle 't9md/vim-quickhl'
+"Bundle 'Valloric/ListToggle'
+"Bundle 'SirVer/ultisnips'
+"Bundle 'scrooloose/syntastic'
+"Bundle 'Lokaltog/vim-powerline'
+"Bundle 'scrooloose/nerdcommenter'
+" Bundle 'wincent/command-t' "same as ctrlp
+"Bundle 'suan/vim-instant-markdown'
+"Bundle 'sukima/xmledit'
+"Bundle 'klen/python-mode'
+"..................................
+" vim-scripts repos
+"Bundle 'YankRing.vim'
+"Bundle 'Vundle.vim'
+"Bundle 'vcscommand.vim'
+"Bundle 'ShowPairs'
+"Bundle 'SudoEdit.vim'
+"Bundle 'EasyGrep'
+"Bundle 'VOoM'
+"Bundle 'VimIM'
+"..................................
+" non github repos
+"Bundle 'git://git.wincent.com/command-t.git'
+"......................................
+call vundle#end()            " required
+filetype on
 filetype plugin on
+filetype plugin indent on
+" To ignore plugin indent changes, instead use:
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to
+" auto-approve removal
+
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+"
+let mapleader = ","
+
+" setting for YankRing.Vim
+let g:yankring_history_dir = '~/.vim/history'
+
+" solarised
+syntax enable
 syntax on
+set background=dark
+colorscheme solarized
+
+" *.cpp 和 *.h 间切换
+nmap <silent> <Leader>sw :FSHere<cr>
+"quickfix store cscope result
+set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
+" for nerd tree
+nmap <F2> :NERDTree<CR>
+
 
 let mapleader = ","
 " 搜索时大小写不敏感
@@ -16,7 +87,6 @@ set laststatus=1
 " 打开行号 和相对行号
 set nu
 set relativenumber
-
 set backspace=2
 set foldlevelstart=99
 set hlsearch
@@ -33,8 +103,8 @@ set formatoptions-=r
 "for markdown preview
 let g:instant_markdown_autostart =0
 nmap <silent> <leader>f :InstantMarkdownPreview<cr>
-
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
+noremap <silent> <expr>j (v:count==0?'gj':'j')
+noremap <silent> <expr>k (v:count==0?'gk':'k')
 
 "再次打开光标位置在上次退出时的位置
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif  
@@ -42,76 +112,10 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 " 打开光标行死高亮
 " set cursorcolumn "CursorColumn
 set cursorline
-highlight CursorLine   cterm=NONE ctermbg=darkyellow ctermfg=white guibg=darkyellow guifg=white
-" cterm 表示为原生vim设置样式，设置为NONE表示可以自定义设置。
-" ctermbg 设置终端vim的背景色
-" ctermfg 设置终端vim的前景色
-" guibg 和 guifg
-" 分别是设置gvim的背景色和前景色，本人平时都是使用终端打开vim，所以只是设置终端下的样式
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" let Vundle manage Vundle
-Bundle 'gmarik/vundle'
-
-"my Bundle here:
-"
-" original repos on github
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'sjl/gundo.vim'
-Bundle 'jiangmiao/auto-pairs'
-Bundle 'Valloric/ListToggle'
-Bundle 'SirVer/ultisnips'
-Bundle 'scrooloose/syntastic'
-Bundle 't9md/vim-quickhl'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'wincent/command-t'
-Bundle 'suan/vim-instant-markdown'
-Bundle 'sukima/xmledit'
-Bundle 'klen/python-mode'
-"..................................
-" vim-scripts repos
-Bundle 'YankRing.vim'
-Bundle 'Vundle.vim'
-Bundle 'vcscommand.vim'
-Bundle 'ShowPairs'
-Bundle 'SudoEdit.vim'
-Bundle 'EasyGrep'
-Bundle 'VOoM'
-Bundle 'VimIM'
-"..................................
-" non github repos
-"Bundle 'git://git.wincent.com/command-t.git'
-"......................................
-call vundle#end()            " required
-filetype plugin indent on
-" To ignore plugin indent changes, instead use:
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to
-" auto-approve removal
-
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-" setting for YankRing.Vim
-let g:yankring_history_dir = '~/.vim/history'
-
-
-" *.cpp 和 *.h 间切换
-nmap <silent> <Leader>sw :FSHere<cr>
-"quickfix store cscope result
-set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
-" for nerd tree
-nmap <F2> :NERDTree<CR>
-nmap <F3> :CtrlP<CR>
-
+"syntastic configu 
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 if has("cscope")
 
     """"""""""""" Standard cscope/vim boilerplate
