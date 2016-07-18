@@ -18,7 +18,9 @@ then
 	clonezsh
 	ln -s $PWD/zsh/zshrc $HOME/.zshrc
 fi
-return 0;
+else
+	echo "file ~/.zshrc is exist"
+fi
 }
 function vim()
 {
@@ -28,6 +30,8 @@ then
 	ln -s $PWD/vim $HOME/.vim
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	vim +PluginInstall +qall
+else
+	echo "file ~/.vimrc is exist"
 fi
 }
 function main()
