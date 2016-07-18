@@ -4,13 +4,6 @@ function help()
 	echo "usage $0 vim/zsh";
 	return 0;
 }
-function clonedotfile()
-{
-	if [ ! -d $HOME/.dotfiles  ]
-	then
-		git clone https://github.com/wangjianli0410/dotfiles.git $HOME/.dotfiles
-	fi
-}
 function clonezsh()
 {
 	if [ ! -d $HOME/.oh-my-zsh ]
@@ -20,7 +13,7 @@ function clonezsh()
 }
 function zsh()
 {
-if [ ! -a $HOME/.zshrc ]
+if [ ! -f $HOME/.zshrc ]
 then 
 	clonezsh
 	ln -s $PWD/zsh/zshrc $HOME/.zshrc
@@ -29,11 +22,12 @@ return 0;
 }
 function vim()
 {
-if [ ! -a $HOME/.vimrc ];
+if [ ! -f $HOME/.vimrc ];
 then 
 	ln -s $PWD/vim/vimrc $HOME/.vimrc
 	ln -s $PWD/vim $HOME/.vim
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	vim +PluginInstall +qall
 fi
 }
 function main()
