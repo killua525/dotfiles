@@ -60,10 +60,10 @@ let mapleader = ","
 let g:yankring_history_dir = '~/.vim/history'
 
 " solarised
-syntax enable
-syntax on
-set background=dark
-colorscheme solarized
+" syntax enable
+" syntax on
+" set background=dark
+" colorscheme solarized
 
 " *.cpp 和 *.h 间切换
 nmap <silent> <Leader>sw :FSHere<cr>
