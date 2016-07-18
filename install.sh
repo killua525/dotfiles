@@ -17,7 +17,6 @@ if [ ! -f $HOME/.zshrc ]
 then 
 	clonezsh
 	ln -s $PWD/zsh/zshrc $HOME/.zshrc
-fi
 else
 	echo "file ~/.zshrc is exist"
 fi
