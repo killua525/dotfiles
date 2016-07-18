@@ -15,7 +15,7 @@ function zsh()
 {
 if [ ! -f $HOME/.zshrc ]
 then 
-	clonezsh
+	clonezsh && \
 	ln -s $PWD/zsh/zshrc $HOME/.zshrc
 else
 	echo "file ~/.zshrc is exist"
@@ -25,9 +25,9 @@ function vim()
 {
 if [ ! -f $HOME/.vimrc ];
 then 
-	ln -s $PWD/vim/vimrc $HOME/.vimrc
-	ln -s $PWD/vim $HOME/.vim
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	ln -s $PWD/vim/vimrc $HOME/.vimrc  &&\
+	ln -s $PWD/vim $HOME/.vim			&&\
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim &&\
 	vim +PluginInstall +qall
 else
 	echo "file ~/.vimrc is exist"
