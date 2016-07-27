@@ -8,7 +8,7 @@ function clonezsh()
 {
 	if [ ! -d $HOME/.oh-my-zsh ]
 	then
-		git clone https://github.com/wangjianli0410/oh-my-zsh.git $HOME/.oh-my-zsh
+		git clone git@github.com:wangjianli0410/oh-my-zsh.git 
 	fi
 }
 function zsh()

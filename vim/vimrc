@@ -27,6 +27,7 @@ Bundle 'bling/vim-airline'
 "Bundle 'klen/python-mode'
 "..................................
 " vim-scripts repos
+ Bundle 'cscope.vim'
 "Bundle 'YankRing.vim'
 "Bundle 'Vundle.vim'
 "Bundle 'vcscommand.vim'

@@ -108,6 +108,3 @@ function mkcd() { mkdir -p "$@" && cd "$_"; }
 
 # Aliases
 alias cppcompile='c++ -std=c++11 -stdlib=libc++'
-alias dockerenv="\
-docker-machine env default && \
-eval $(docker-machine env default)"
