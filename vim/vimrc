@@ -17,27 +17,13 @@ Plugin 'altercation/vim-colors-solarized'
 Bundle 't9md/vim-quickhl'
 Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
-"Bundle 'Valloric/YouCompleteMe'
-"Bundle 'SirVer/ultisnips'
-"Bundle 'scrooloose/syntastic'
-"Bundle 'Lokaltog/vim-powerline'
-Bundle 'scrooloose/nerdcommenter'
-" Bundle 'wincent/command-t' "same as ctrlp
-"Bundle 'suan/vim-instant-markdown'
-"Bundle 'sukima/xmledit'
-"Bundle 'klen/python-mode'
 "..................................
 " vim-scripts repos
  Bundle 'cscope.vim'
- Bundle 'xptemplate'
-"Bundle 'YankRing.vim'
-"Bundle 'Vundle.vim'
-"Bundle 'vcscommand.vim'
-"Bundle 'ShowPairs'
-"Bundle 'SudoEdit.vim'
-"Bundle 'EasyGrep'
-"Bundle 'VOoM'
-"Bundle 'VimIM'
+Bundle 'YankRing.vim'
+Bundle 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
 "..................................
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
@@ -46,20 +32,15 @@ call vundle#end()            " required
 filetype on
 filetype plugin on
 filetype plugin indent on
-" To ignore plugin indent changes, instead use:
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to
-" auto-approve removal
 
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
+" for ultisnips
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 "
-
 " setting for YankRing.Vim
 let g:yankring_history_dir = '~/.vim/history'
 "for airline'
@@ -75,7 +56,7 @@ let g:airline_symbols.branch = '⎇'
 
 " 是否打开tabline
 "let g:airline#extensions#tabline#enabled = 1"
-
+set noswapfile
 " solarised
 syntax enable
 syntax on
@@ -88,6 +69,7 @@ nmap <silent> <Leader>sw :FSHere<cr>
 set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
 " for nerd tree
 nmap <F2> ;NERDTree<CR>
+
 nmap <F3> ;Ack -i 
 
 
@@ -125,8 +107,7 @@ nnoremap <C-J> <C-W><C-J> "Ctrl-j to move down a split
 nnoremap <C-K> <C-W><C-K> "Ctrl-k to move up a split  
 nnoremap <C-L> <C-W><C-L> "Ctrl-l to move    right a split  
 nnoremap <C-H> <C-W><C-H> "Ctrl-h to move left a split  
-nmap <leader>q ;q<CR>
-nmap <leader>qq ;q!<CR>
+nmap <leader>q ;q!<CR>
 nmap <leader>w ;w<CR>
 nmap <leader>wq ;wq<CR>
 nmap <leader>m %
@@ -188,3 +169,30 @@ if has("cscope")
 	nmap <C-\>d ;cs find d <C-R>=expand("<cword>")<CR><CR>	
 
 endif
+function NewMDfile()
+call setline(1,"---")
+call append(1,"layout: post")
+call append(2,"title: ")
+call append(3,"data: ")
+call append(4,"category:") 
+call append(5,"keywords: ")
+call append(6,"published: false")
+call append(7,"---")
+endfunction
+function! Newfiletitle()
+	call NewMDfile()
+endfunction
+autocmd BufNewFile *.{md,markdown},*vimrc call Newfiletitle()
+function! AutoUpdateTheLastUpdateInfo()
+	let s:original_pos = getpos(".")
+	let s:regexp = "^\s*\([#\"\*\]\|\/\/\)\s\?[lL]ast \([uU]pdate\|[cC]hange\):"
+	let s:lu = search(s:regexp)
+	if s:lu != 0
+		let s:update_str = matchstr(getline(s:lu), s:regexp)
+		call setline(s:lu, s:update_str . strftime(" %c"))
+		call setpos(".", s:original_pos)
+	endif
+endfunction
+"autocmd VimLeave *.{md,c,js,css},*vimrc call AutoUpdateTheLastUpdateInfo()
+nmap <silent> <Leader>cf ;call Addfiletitle()<cr>
+autocmd WinLeave *.{md,c,js,css},*vimrc ;call AutoUpdateTheLastUpdateInfo()
