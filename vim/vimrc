@@ -36,8 +36,8 @@ filetype plugin indent on
 " for ultisnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+"let g:UltiSnipsJumpForwardTrigger="<c-k>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 "
@@ -169,30 +169,3 @@ if has("cscope")
 	nmap <C-\>d ;cs find d <C-R>=expand("<cword>")<CR><CR>	
 
 endif
-function NewMDfile()
-call setline(1,"---")
-call append(1,"layout: post")
-call append(2,"title: ")
-call append(3,"data: ")
-call append(4,"category:") 
-call append(5,"keywords: ")
-call append(6,"published: false")
-call append(7,"---")
-endfunction
-function! Newfiletitle()
-	call NewMDfile()
-endfunction
-autocmd BufNewFile *.{md,markdown},*vimrc call Newfiletitle()
-function! AutoUpdateTheLastUpdateInfo()
-	let s:original_pos = getpos(".")
-	let s:regexp = "^\s*\([#\"\*\]\|\/\/\)\s\?[lL]ast \([uU]pdate\|[cC]hange\):"
-	let s:lu = search(s:regexp)
-	if s:lu != 0
-		let s:update_str = matchstr(getline(s:lu), s:regexp)
-		call setline(s:lu, s:update_str . strftime(" %c"))
-		call setpos(".", s:original_pos)
-	endif
-endfunction
-"autocmd VimLeave *.{md,c,js,css},*vimrc call AutoUpdateTheLastUpdateInfo()
-nmap <silent> <Leader>cf ;call Addfiletitle()<cr>
-autocmd WinLeave *.{md,c,js,css},*vimrc ;call AutoUpdateTheLastUpdateInfo()
