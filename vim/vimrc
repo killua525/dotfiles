@@ -1,12 +1,14 @@
+
 " set the runtime path to include Vundle and initialize
 let mapleader = ","
+
 " git clone https://github.com/VundleVim/Vundle.vim.git  ~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/bundle/Vundle.vim
+
 call vundle#begin()
 " let Vundle manage Vundle
 "Bundle 'gmarik/vundle'
 Plugin 'VundleVim/Vundle.vim'
-
 "my Bundle here:
 " original repos on github
 Bundle 'kien/ctrlp.vim'
@@ -23,15 +25,17 @@ Bundle 'bling/vim-airline'
 Bundle 'YankRing.vim'
 Bundle 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-
-"..................................
-" non github repos
-"Bundle 'git://git.wincent.com/command-t.git'
-"......................................
 call vundle#end()            " required
+
 filetype on
 filetype plugin on
 filetype plugin indent on
+
+" solarised
+syntax enable
+syntax on
+set background=dark
+colorscheme solarized
 
 " for ultisnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -40,7 +44,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-"
+
 " setting for YankRing.Vim
 let g:yankring_history_dir = '~/.vim/history'
 "for airline'
@@ -55,36 +59,44 @@ let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 
 " 是否打开tabline
-"let g:airline#extensions#tabline#enabled = 1"
+" let g:airline#extensions#tabline#enabled = 1
 set noswapfile
-" solarised
-syntax enable
-syntax on
-set background=dark
-colorscheme solarized
 
 " *.cpp 和 *.h 间切换
 nmap <silent> <Leader>sw :FSHere<cr>
+
 "quickfix store cscope result
 set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
+
 " for nerd tree
-nmap <F2> ;NERDTree<CR>
+nmap <F2> ;NERDTreeToggle<CR>
+let NERDTreeWinPos="right"
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+
 
 nmap <F3> ;Ack -i 
+
+" m[a-z]
+" ' + [a-z]
 
 
 " 搜索时大小写不敏感
 set ignorecase
+
 " 关闭兼容模式
 set nocompatible
+
 " 开启实时搜索功能
 set incsearch
+
 " vim 自身命令行模式智能补全
 set wildmenu
+
 " 总是显示状态栏
 set laststatus=2
 set ruler
 set statusline="%t%m"
+
 " 打开行号 和相对行号
 set nu
 set relativenumber
@@ -93,25 +105,47 @@ set foldlevelstart=99
 set hlsearch
 set shiftwidth=4
 set softtabstop=4
+
+" tab 4 space
 set tabstop=4
-set encoding=utf-8
+
+set encoding=utf-8 nobomb
 set fileencodings=ucs-bom,utf-8,cp936
+
+set binary
+set noeol
+
+set modeline
+set modelines=4
+
+" disable error bells
+set noerrorbells
+
+set showmode
+
+set title
+
 set showcmd
 set showmatch
 set formatoptions-=r
 "set shell=bash\ -i
+
 "for markdown preview
 let g:instant_markdown_autostart =0
 nmap <silent> <leader>f ;InstantMarkdownPreview<cr>
-nnoremap <C-J> <C-W><C-J> "Ctrl-j to move down a split  
-nnoremap <C-K> <C-W><C-K> "Ctrl-k to move up a split  
-nnoremap <C-L> <C-W><C-L> "Ctrl-l to move    right a split  
-nnoremap <C-H> <C-W><C-H> "Ctrl-h to move left a split  
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K> 
+nnoremap <C-L> <C-W><C-L> 
+nnoremap <C-H> <C-W><C-H> 
+
 nmap <leader>q ;q!<CR>
 nmap <leader>w ;w<CR>
 nmap <leader>wq ;wq<CR>
 nmap <leader>m %
+
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
 nnoremap ; :
 nnoremap : ;
 
@@ -122,50 +156,3 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 " set cursorcolumn "CursorColumn
 set cursorline
 set cursorcolumn
-if has("cscope")
-
-	""""""""""""" Standard cscope/vim boilerplate
-
-	" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
-	set cscopetag
-
-	" check cscope for definition of a symbol before checking ctags: set to 1
-	" if you want the reverse search order.
-	set csto=0
-
-	" show msg when any other cscope db added
-	set nocscopeverbose  
-
-	" add any cscope database in current directory
-	if filereadable("cscope.out")
-		cs add cscope.out  
-		" else add the database pointed to by environment variable 
-	elseif $CSCOPE_DB != ""
-		cs add $CSCOPE_DB
-	endif
-
-
-
-	""""""""""""" My cscope/vim key mappings
-	"
-	" The following maps all invoke one of the following cscope search types:
-	"
-	"   's'   symbol: find all references to the token under cursor
-	"   'g'   global: find global definition(s) of the token under cursor
-	"   'c'   calls:  find all calls to the function name under cursor
-	"   't'   text:   find all instances of the text under cursor
-	"   'e'   egrep:  egrep search for the word under cursor
-	"   'f'   file:   open the filename under cursor
-	"   'i'   includes: find files that include the filename under cursor
-	"   'd'   called: find functions that function under cursor calls
-	"
-	nmap <C-\>s ;cs find s <C-R>=expand("<cword>")<CR><CR>	
-	nmap <C-\>g ;cs find g <C-R>=expand("<cword>")<CR><CR>	
-	nmap <C-\>c ;cs find c <C-R>=expand("<cword>")<CR><CR>	
-	nmap <C-\>t ;cs find t <C-R>=expand("<cword>")<CR><CR>	
-	nmap <C-\>e ;cs find e <C-R>=expand("<cword>")<CR><CR>	
-	nmap <C-\>f ;cs find f <C-R>=expand("<cfile>")<CR><CR>	
-	nmap <C-\>i ;cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-	nmap <C-\>d ;cs find d <C-R>=expand("<cword>")<CR><CR>	
-
-endif
