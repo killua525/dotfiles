@@ -7,23 +7,22 @@ set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
 " let Vundle manage Vundle
-"Bundle 'gmarik/vundle'
 Plugin 'VundleVim/Vundle.vim'
 "my Bundle here:
 " original repos on github
-Bundle 'kien/ctrlp.vim'
-Bundle 'derekwyatt/vim-fswitch'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jiangmiao/auto-pairs'
+Plugin 'kien/ctrlp.vim'
+Plugin 'derekwyatt/vim-fswitch'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'altercation/vim-colors-solarized'
-Bundle 't9md/vim-quickhl'
-Bundle 'mileszs/ack.vim'
-Bundle 'bling/vim-airline'
+Plugin 't9md/vim-quickhl'
+Plugin 'mileszs/ack.vim'
+Plugin 'bling/vim-airline'
 "..................................
 " vim-scripts repos
- Bundle 'cscope.vim'
-Bundle 'YankRing.vim'
-Bundle 'SirVer/ultisnips'
+Plugin 'cscope.vim'
+Plugin 'YankRing.vim'
+Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 call vundle#end()            " required
 
