@@ -11,17 +11,14 @@ Plugin 'VundleVim/Vundle.vim'
 "my Bundle here:
 " original repos on github
 Plugin 'kien/ctrlp.vim'
-Plugin 'derekwyatt/vim-fswitch'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 't9md/vim-quickhl'
-Plugin 'mileszs/ack.vim'
 Plugin 'bling/vim-airline'
 "..................................
 " vim-scripts repos
 Plugin 'cscope.vim'
-Plugin 'YankRing.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 call vundle#end()            " required
@@ -36,6 +33,10 @@ syntax on
 set background=dark
 colorscheme solarized
 
+" ctrlp
+let g:ctrlp_map = '<C-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
 " for ultisnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -44,8 +45,6 @@ let g:UltiSnipsExpandTrigger="<tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-" setting for YankRing.Vim
-let g:yankring_history_dir = '~/.vim/history'
 "for airline'
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
@@ -65,7 +64,7 @@ set noswapfile
 nmap <silent> <Leader>sw :FSHere<cr>
 
 "quickfix store cscope result
-set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
+" set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
 
 " for nerd tree
 nmap <F2> ;NERDTreeToggle<CR>
@@ -73,14 +72,16 @@ let NERDTreeWinPos="right"
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 
 
-nmap <F3> ;Ack -i 
+
+
+
 
 " m[a-z]
 " ' + [a-z]
 
 
 " 搜索时大小写不敏感
-set ignorecase
+" set ignorecase
 
 " 关闭兼容模式
 set nocompatible
@@ -138,10 +139,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L> 
 nnoremap <C-H> <C-W><C-H> 
 
-nmap <leader>q ;q!<CR>
-nmap <leader>w ;w<CR>
-nmap <leader>wq ;wq<CR>
-nmap <leader>m %
+" nmap <leader>q ;q!<CR>
+" nmap <leader>w ;w<CR>
+" nmap <leader>wq ;wq<CR>
 
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
@@ -155,3 +155,26 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 " set cursorcolumn "CursorColumn
 set cursorline
 set cursorcolumn
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" cscope setting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("cscope")
+  set csprg=/usr/local/bin/cscope
+  set csto=1
+  set cst
+  set nocsverb
+  " add any database in current directory
+  if filereadable("cscope.out")
+      cs add cscope.out
+  endif
+  set csverb
+nmap <Leader>cs ;cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <Leader>cg ;cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <Leader>cc ;cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <Leader>ct ;cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <Leader>ce ;cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <Leader>cf ;cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <Leader>ci ;cs find i <C-R>=expand("<cfile>")<CR><CR>
+nmap <Leader>cd ;cs find d <C-R>=expand("<cword>")<CR><CR>
+endif

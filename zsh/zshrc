@@ -6,12 +6,12 @@ ZSH_THEME="robbyrussell"
 HIST_STAMPS="mm/dd/yyyy"
 
 
-plugins=(osx brew brew-cask sudo zsh_reload git autojump docker cp)
+plugins=(osx brew brew-cask sudo zsh_reload my git autojump docker cp)
 
 # User configuration
 
-export PATH=.:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
-export MANPATH="/usr/local/man:$MANPATH"
+export PATH=.:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
+export MANPATH="/usr/local/share/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -24,10 +24,10 @@ alias vi="vim"
 
 #macdown 打开md
 alias -s md=vi
-alias -s markdown=vi
+alias -s markdown=macdown
+alias -s md=macdown
 alias -s c=vi
 alias -s cpp=vi
-alias -s py=vi
 alias -s h=vi
 
 # FileSearch
@@ -39,3 +39,4 @@ function mkcd() { mkdir -p "$@" && cd "$_"; }
 
 # Aliases
 alias cppcompile='c++ -std=c++11 -stdlib=libc++'
+
