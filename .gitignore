@@ -2,8 +2,3 @@ cscope*
 .DS_Store
 .netrwhist
 history/
-vim/bundle/
-!vim/bundle/Vundle.vim
-!vim/bundle/vim-colors-solarized
-!vim/bundle/vim-snippets
-!vim/bundle/ultisnips
