@@ -17,11 +17,9 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 't9md/vim-quickhl'
 Plugin 'bling/vim-airline'
-" Plugin 'Valloric/YouCompleteMe'
 "..................................
 " vim-scripts repos
 Plugin 'godlygeek/tabular'
-"Plugin 'SirVer/ultisnips'
 Plugin 'jzdxeb/vim-snippets'
 call vundle#end()            " required
 
@@ -38,14 +36,6 @@ colorscheme solarized
 " ctrlp
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
-" for ultisnips
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-k>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-j>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 "for airline'
 if !exists('g:airline_symbols')
@@ -137,38 +127,3 @@ imap kj  <esc><esc>
 nmap <leader>w :w<CR>
 nmap <leader>wq :wq<CR>
 nmap <leader>q :q!<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" UltiSnips completion function that tries to expand a snippet. If there's no
-" snippet for expanding, it checks for completion window and if it's
-" shown, selects first element. If there's no completion window it tries to
-" jump to next placeholder. If there's no placeholder it just returns TAB key 
-function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
-
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-
-" Expand snippet or return
-let g:ulti_expand_res = 1
-function! Ulti_ExpandOrEnter()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res
-        return ''
-    else
-        return "\<return>"
-endfunction
-
-" Set <space> as primary trigger
-inoremap <return> <C-R>=Ulti_ExpandOrEnter()<CR>
