@@ -25,8 +25,6 @@ alias vi="vim"
 
 #macdown 打开md
 alias -s md=vi
-alias -s markdown=macdown
-alias -s md=macdown
 alias -s c=vi
 alias -s cpp=vi
 alias -s h=vi

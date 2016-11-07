@@ -1,4 +1,3 @@
-autocmd Filetype gitcommit setlocal spell textwidth=72
 " set the runtime path to include Vundle and initialize
 let mapleader = ","
 
@@ -18,10 +17,10 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 't9md/vim-quickhl'
 Plugin 'bling/vim-airline'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 "..................................
 " vim-scripts repos
-Plugin 'cscope.vim'
+Plugin 'godlygeek/tabular'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 call vundle#end()            " required
@@ -59,41 +58,32 @@ let g:airline_right_alt_sep = '❮'
 let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 
-" 是否打开tabline
-" let g:airline#extensions#tabline#enabled = 1
-set noswapfile
-
 " *.cpp 和 *.h 间切换
 nmap <silent> <Leader>sw :FSHere<cr>
 
-"quickfix store cscope result
-" set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
-
 " for nerd tree
-nmap <F2> ;NERDTreeToggle<CR>
+nmap <F2> :NERDTreeToggle<CR>
 let NERDTreeWinPos="right"
+
+"再次打开光标位置在上次退出时的位置
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif  
+
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
-
-
-
-
-
-
-" m[a-z]
-" ' + [a-z]
-
+autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
+set noswapfile
+" 关闭兼容模式
+set nocompatible
+" vim 自身命令行模式智能补全
+set wildmenu
 
 " 搜索时大小写不敏感
 " set ignorecase
 
-" 关闭兼容模式
-set nocompatible
 
 " 开启实时搜索功能
 set incsearch
-
-" vim 自身命令行模式智能补全
-set wildmenu
 
 " 总是显示状态栏
 set laststatus=2
@@ -103,14 +93,18 @@ set statusline="%t%m"
 " 打开行号 和相对行号
 set nu
 set relativenumber
+
 set backspace=2
 set foldlevelstart=99
 set hlsearch
+" indent 4 space 
 set shiftwidth=4
+" tab = 4 space
 set softtabstop=4
 
 " tab 4 space
 set tabstop=4
+
 set encoding=utf-8 nobomb
 set fileencodings=ucs-bom,utf-8,cp936
 set binary
@@ -120,17 +114,17 @@ set modelines=4
 
 " disable error bells
 set noerrorbells
-set showmode
+" set showmode
 set title
 set pastetoggle=<F9>
 set showcmd
 set showmatch
 set formatoptions-=r
 "set shell=bash\ -i
-
-"for markdown preview
-let g:instant_markdown_autostart =0
-nmap <silent> <leader>f ;InstantMarkdownPreview<cr>
+" 打开光标行死高亮
+" set cursorcolumn "CursorColumn
+set cursorline
+set cursorcolumn
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K> 
@@ -140,106 +134,11 @@ nnoremap <C-H> <C-W><C-H>
 imap jk  <esc><esc>
 imap kj  <esc><esc>
 
-" nmap <leader>w ;w<CR>
-" nmap <leader>wq ;wq<CR>
-
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
-
-nnoremap ; :
-nnoremap : ;
-
-"再次打开光标位置在上次退出时的位置
-au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif  
-
-" 打开光标行死高亮
-" set cursorcolumn "CursorColumn
-set cursorline
-set cursorcolumn
+nmap <leader>w :w<CR>
+nmap <leader>wq :wq<CR>
+nmap <leader>q :q!<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" cscope setting
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has("cscope")
-  set csprg=/usr/local/bin/cscope
-  set csto=1
-  set cst
-  set nocsverb
-  " add any database in current directory
-  if filereadable("cscope.out")
-      cs add cscope.out
-  endif
-  set csverb
-nmap <Leader>cs ;cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>cg ;cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>cc ;cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>ct ;cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>ce ;cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>cf ;cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <Leader>ci ;cs find i <C-R>=expand("<cfile>")<CR><CR>
-nmap <Leader>cd ;cs find d <C-R>=expand("<cword>")<CR><CR>
-endif
-" for ycm
-set completeopt=longest,menu	"让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif	"离开插入模式后自动关闭预览窗口
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"	"回车即选中当前项
-"上下左右键的行为 会显示其他信息
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-" 跳转到定义处
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" nnoremap <leader>lo :lopen<CR>	"open locationlist
-" nnoremap <leader>lc :lclose<CR>	"close locationlist
-inoremap <leader><leader> <C-x><C-o>
-
-let g:ycm_global_ycm_extra_conf = '~/.vim/data/ycm/.ycm_extra_conf.py'
-" 不显示开启vim时检查ycm_extra_conf文件的信息  
-let g:ycm_confirm_extra_conf=0
-" 开启基于tag的补全，可以在这之后添加需要的标签路径  
-let g:ycm_collect_identifiers_from_tags_files=1
-"注释和字符串中的文字也会被收入补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
-" 输入第2个字符开始补全
-let g:ycm_min_num_of_chars_for_completion=2
-" 禁止缓存匹配项,每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
-" 开启语义补全
-let g:ycm_seed_identifiers_with_syntax=1	
-"在注释输入中也能补全
-let g:ycm_complete_in_comments = 1
-"在字符串输入中也能补全
-let g:ycm_complete_in_strings = 1
-" 设置在下面几种格式的文件上屏蔽ycm
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'nerdtree' : 1,
-      \}
-"youcompleteme  默认tab  s-tab 和 ultisnips 冲突
-let g:ycm_key_list_select_completion = ['<Down>']
-let g:ycm_key_list_previous_completion = ['<Up>']
-" 修改对C函数的补全快捷键，默认是CTRL + space，修改为ALT + ;
-let g:ycm_key_invoke_completion = '<M-;>'
-
-" SirVer/ultisnips 代码片断
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsListSnippets="<c-e>"
-"定义存放代码片段的文件夹，使用自定义和默认的，将会的到全局，有冲突的会提示
-let g:UltiSnipsSnippetDirectories=["bundle/vim-snippets/UltiSnips"]
-
-" 参考https://github.com/Valloric/YouCompleteMe/issues/36#issuecomment-62941322
-" 解决ultisnips和ycm tab冲突，如果不使用下面的办法解决可以参考
-" https://github.com/Valloric/YouCompleteMe/issues/36#issuecomment-63205056的配置
-" begin
-" let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
-" let g:UltiSnipsExpandTrigger="<Tab>"
-" let g:UltiSnipsJumpForwardTrigger="<Tab>"                                           
-" let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-" end
 " UltiSnips completion function that tries to expand a snippet. If there's no
 " snippet for expanding, it checks for completion window and if it's
 " shown, selects first element. If there's no completion window it tries to
