@@ -16,6 +16,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 't9md/vim-quickhl'
+Plugin 'mileszs/ack.vim'
 Plugin 'bling/vim-airline'
 "..................................
 " vim-scripts repos
@@ -120,6 +121,7 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K> 
 nnoremap <C-L> <C-W><C-L> 
 nnoremap <C-H> <C-W><C-H> 
+nnoremap <F3> :Ack! 
 
 imap jk  <esc><esc>
 imap kj  <esc><esc>
@@ -127,3 +129,7 @@ imap kj  <esc><esc>
 nmap <leader>w :w<CR>
 nmap <leader>wq :wq<CR>
 nmap <leader>q :q!<CR>
+
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
