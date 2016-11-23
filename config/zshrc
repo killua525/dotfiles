@@ -39,3 +39,4 @@ function mkcd() { mkdir -p "$@" && cd "$_"; }
 # Aliases
 alias cppcompile='c++ -std=c++11 -stdlib=libc++'
 
+setopt nonomatch
