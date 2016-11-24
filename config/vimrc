@@ -64,6 +64,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeT
 autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
+
 set noswapfile
 " 关闭兼容模式
 set nocompatible
@@ -73,9 +74,8 @@ set wildmenu
 " 搜索时大小写不敏感
 " set ignorecase
 
-
 " 开启实时搜索功能
-set incsearch
+" set incsearch
 
 " 总是显示状态栏
 set laststatus=2
@@ -101,8 +101,6 @@ set encoding=utf-8 nobomb
 set fileencodings=ucs-bom,utf-8,cp936
 set binary
 set noeol
-set modeline
-set modelines=4
 
 " disable error bells
 set noerrorbells
@@ -123,13 +121,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L> 
 nnoremap <C-H> <C-W><C-H> 
 nnoremap <F3> :Ack! 
-
-imap jk  <esc><esc>
-imap kj  <esc><esc>
-
-nmap <leader>w :w<CR>
-nmap <leader>wq :wq<CR>
-nmap <leader>q :q!<CR>
 
 if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
