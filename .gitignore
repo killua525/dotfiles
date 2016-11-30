@@ -3,4 +3,4 @@ cscope*
 .netrwhist
 history/
 vim/bundle/
-!vim/bundle/vim-snippets/UltiSnips
+!vim/bundle/vim-snippets/UltiSnips/
