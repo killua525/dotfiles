@@ -22,6 +22,7 @@ Plugin 'elzr/vim-json'
 "..................................
 " vim-scripts repos
 Plugin 'godlygeek/tabular'
+Plugin 'SirVer/ultisnips'
 Plugin 'jzdxeb/vim-snippets'
 call vundle#end()            " required
 
@@ -63,7 +64,7 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
-autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
+autocmd FileType python,lua setlocal expandtab shiftwidth=4 softtabstop=4
 
 set noswapfile
 " 关闭兼容模式
@@ -125,3 +126,9 @@ nnoremap <F3> :Ack!
 if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
 endif
+let g:UltiSnipsSnippetDirectories=['UltiSnips']
+let g:UltiSnipsSnippetsDir = '~/.vim/bundle/vim-snippets/UltiSnips'
+let g:UltiSnipsExpandTrigger = '<Tab>'
+let g:UltiSnipsListSnippets = '<C-Tab>'
+let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
