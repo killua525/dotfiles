@@ -1,128 +1,108 @@
-au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.mdwn,*.md  set ft=markdown
-" set the runtime path to include Vundle and initialize
-let mapleader = ","
-
-" git clone https://github.com/VundleVim/Vundle.vim.git  ~/.vim/bundle/Vundle.vim
+" [general]
 set rtp+=~/.vim/bundle/Vundle.vim
+let mapleader = ","
+set noswapfile
+" 关闭兼容模式
+set nocompatible
+" vim 自身命令行模式智能补全
+set wildmenu
+set laststatus=2 " 0 close 
+set nu
+set sta
+set relativenumber
+set foldlevelstart=99
+set hlsearch
+set noignorecase
+set incsearch
+set expandtab
+" 总是显示状态栏
+set ruler
+set statusline="%t%m"
+set statusline+=%#warningmsg#
+set statusline+=%*
+set showmatch
+"set shell=bash\ -i
+" 打开光标行死高亮
+set cursorcolumn "CursorColumn
+set cursorline
+set cursorcolumn
 
+" [filetype]
+augroup filetype
+	autocmd BufNewFile,BufRead * set filetype=def
+augroup END
+
+filetype on
+set cindent shiftwidth=4
+set encoding=utf-8 nobomb
+set fileencodings=ucs-bom,utf-8,cp936
+set binary
+set noeol
+"再次打开光标位置在上次退出时的位置
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif  
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd Filetype make setlocal  noexpandtab shiftwidth=8 softtabstop=0
+autocmd Filetype def setlocal  expandtab sw=4 ts=4 st=4 
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+" [key]
+"set pastetoggle=<F9>
+set formatoptions-=r
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K> 
+nnoremap <C-L> <C-W><C-L> 
+nnoremap <C-H> <C-W><C-H> 
+" [color]
+highlight Comment ctermfg=blue guifg=green
+set term=ansi
+set bg=dark
+
+" set showmode
+set title
+set titlestring=filename
+
+
+"       ctags
+set tags=tags;
+"set autochdir
+" [for mac]
+set backspace=2
+
+" [plugin]
+" ===================
+filetype plugin on
+filetype plugin indent on
 call vundle#begin()
 " let Vundle manage Vundle
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-eunuch'
 Plugin 'sheerun/vim-polyglot'
-"my Bundle here:
-" original repos on github
 Plugin 'kien/ctrlp.vim'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'fatih/vim-go'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 't9md/vim-quickhl'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'mileszs/ack.vim'
-Plugin 'bling/vim-airline'
 Plugin 'elzr/vim-json'
 "..................................
 " vim-scripts repos
 Plugin 'godlygeek/tabular'
 Plugin 'SirVer/ultisnips'
 Plugin 'jzdxeb/vim-snippets'
+Plugin 'taglist.vim'
 call vundle#end()            " required
 
-filetype on
-filetype plugin on
-filetype plugin indent on
-
-" solarised
-syntax enable
-syntax on
-set background=dark
-colorscheme solarized
 
 " ctrlp
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
-"for airline'
-if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
-endif
-let g:airline_left_sep = '▶'
-let g:airline_left_alt_sep = '❯'
-let g:airline_right_sep = '◀'
-let g:airline_right_alt_sep = '❮'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-
-" *.cpp 和 *.h 间切换
-nmap <silent> <Leader>sw :FSHere<cr>
-
 " for nerd tree
 nmap <F2> :NERDTreeToggle<CR>
 let NERDTreeWinPos="right"
-
-"再次打开光标位置在上次退出时的位置
-au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif  
-
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
-autocmd Filetype gitcommit setlocal spell textwidth=72
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
-autocmd FileType python,lua setlocal expandtab shiftwidth=4 softtabstop=4
-
-set noswapfile
-" 关闭兼容模式
-set nocompatible
-" vim 自身命令行模式智能补全
-set wildmenu
-
-" 搜索时大小写不敏感
-" set ignorecase
-
-" 开启实时搜索功能
-" set incsearch
-
-" 总是显示状态栏
-set laststatus=2
-set ruler
-set statusline="%t%m"
-
-" 打开行号 和相对行号
-set nu
-set relativenumber
-
-set backspace=2
-set foldlevelstart=99
-set hlsearch
-" indent 4 space 
-set shiftwidth=4
-" tab = 4 space
-set softtabstop=4
-
-" tab 4 space
-set tabstop=4
-
-set encoding=utf-8 nobomb
-set fileencodings=ucs-bom,utf-8,cp936
-set binary
-set noeol
-
-" disable error bells
-set noerrorbells
-" set showmode
-set title
-set pastetoggle=<F9>
-set showcmd
-set showmatch
-set formatoptions-=r
-"set shell=bash\ -i
-" 打开光标行死高亮
-" set cursorcolumn "CursorColumn
-set cursorline
-set cursorcolumn
-
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K> 
-nnoremap <C-L> <C-W><C-L> 
-nnoremap <C-H> <C-W><C-H> 
-nnoremap <F3> :Ack! 
 
 if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
@@ -130,3 +110,79 @@ endif
 let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:UltiSnipsJumpForwardTrigger = '<Tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+
+if has("cscope")
+        set cscopetag   " 使支持用 Ctrl+]  和 Ctrl+t 快捷键在代码间跳来跳去
+        " check cscope for definition of a symbol before checking ctags:
+        " set to 1 if you want the reverse search order.
+        set csto=1
+
+        " add any cscope database in current directory
+        if filereadable("cscope.out")
+        cs add cscope.out
+        " else add the database pointed to by environment variable
+        elseif $CSCOPE_DB !=""
+        cs add $CSCOPE_DB
+        endif
+
+        " show msg when any other cscope db added
+        set cscopeverbose
+
+		nmap <leader>sa :cs add cscope.out<cr>
+		nmap <leader>ss :cs find s <C-R>=expand("<cword>")<cr><cr>
+		nmap <leader>sg :cs find g <C-R>=expand("<cword>")<cr><cr>
+		nmap <leader>sc :cs find c <C-R>=expand("<cword>")<cr><cr>
+		nmap <leader>st :cs find t <C-R>=expand("<cword>")<cr><cr>
+		nmap <leader>se :cs find e <C-R>=expand("<cword>")<cr><cr>
+		nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<cr><cr>
+		nmap <leader>si :cs find i <C-R>=expand("<cfile>")<cr><cr>
+		nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
+endif
+
+"       taglist
+" 按F8按钮，在窗口的左侧出现taglist的窗口,像vc的左侧的workpace
+nnoremap <silent> <F8> :TlistToggle<CR><CR>
+" :Tlist              调用TagList
+let Tlist_Show_One_File=0                    " 只显示当前文件的tags
+let Tlist_Exit_OnlyWindow=1                  " 如果Taglist窗口是最后一个窗口则退出Vim
+" let Tlist_Use_Right_Window=1                 " 在右侧窗口中显示
+let Tlist_File_Fold_Auto_Close=1             " 自动折叠
+
+" Go Settings
+"
+let g:gotests_bin = '/root/goroot/bin/gotests'
+au FileType go nmap gr <Plug>(go-run)
+au FileType go nmap gb <Plug>(go-build)
+au FileType go nmap got <Plug>(go-test)
+au FileType go nmap gc <Plug>(go-coverage)
+au FileType go nmap gds <Plug>(go-def-split)
+au FileType go nmap gdv <Plug>(go-def-vertical)
+au FileType go nmap gdt <Plug>(go-def-tab)
+au FileType go nmap gdoc <Plug>(go-doc)
+au FileType go nmap gv <Plug>(go-doc-vertical)
+au FileType go nmap gs <Plug>(go-implements)
+au FileType go nmap ge <Plug>(go-rename)
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+"let g:syntastic_go_checkers=['go']
+let g:syntastic_go_checkers=['go', 'golint']
+let g:syntastic_javascript_checkers = ['jslint']
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
+" ycm
+let g:ycm_min_num_of_chars_for_completion = 3 
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_complete_in_comments = 1
+nnoremap gd :YcmCompleter GoToDefinition<CR>
+nnoremap gdc :YcmCompleter GoToDeclaration <CR>
+nnoremap gr :YcmCompleter GoToReferences<CR>
+" ultisnips settings
+
+let g:UltiSnipsExpandTrigger="<c-\>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
