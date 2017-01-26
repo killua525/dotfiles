@@ -1,6 +1,8 @@
 " [general]
 set rtp+=~/.vim/bundle/Vundle.vim
 set term=linux
+set history=100
+syntax on
 let mapleader = ","
 set noswapfile
 " 关闭兼容模式
