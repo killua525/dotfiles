@@ -1,5 +1,6 @@
 " [general]
 set rtp+=~/.vim/bundle/Vundle.vim
+set term=ansi
 let mapleader = ","
 set noswapfile
 " 关闭兼容模式
@@ -17,11 +18,8 @@ set incsearch
 set expandtab
 " 总是显示状态栏
 set ruler
-set statusline="%t%m"
-set statusline+=%#warningmsg#
-set statusline+=%*
 set showmatch
-"set shell=bash\ -i
+set shell=bash\ -i
 " 打开光标行死高亮
 set cursorcolumn "CursorColumn
 set cursorline
@@ -29,7 +27,7 @@ set cursorcolumn
 
 " [filetype]
 augroup filetype
-	autocmd BufNewFile,BufRead * set filetype=def
+    autocmd BufNewFile,BufRead *.markdown,*.md  set ft=markdown
 augroup END
 
 filetype on
@@ -43,29 +41,28 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd Filetype make setlocal  noexpandtab shiftwidth=8 softtabstop=0
-autocmd Filetype def setlocal  expandtab sw=4 ts=4 st=4 
+autocmd Filetype python,c,cpp setlocal  expandtab sw=4 ts=4 st=4 
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " [key]
-"set pastetoggle=<F9>
-set formatoptions-=r
+set pastetoggle=<F9>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K> 
 nnoremap <C-L> <C-W><C-L> 
 nnoremap <C-H> <C-W><C-H> 
+
 " [color]
 highlight Comment ctermfg=blue guifg=green
-set term=ansi
-set bg=dark
+"set t_Co=256
+"set bg=dark
 
 " set showmode
 set title
 set titlestring=filename
 
-
 "       ctags
-set tags=tags;
-"set autochdir
+set tag=tags;
+
 " [for mac]
 set backspace=2
 
@@ -74,7 +71,6 @@ set backspace=2
 filetype plugin on
 filetype plugin indent on
 call vundle#begin()
-" let Vundle manage Vundle
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-eunuch'
 Plugin 'sheerun/vim-polyglot'
@@ -82,9 +78,9 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'fatih/vim-go'
 Plugin 'scrooloose/nerdtree'
-Plugin 'jiangmiao/auto-pairs'
 Plugin 't9md/vim-quickhl'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mileszs/ack.vim'
 Plugin 'elzr/vim-json'
 "..................................
@@ -94,22 +90,19 @@ Plugin 'SirVer/ultisnips'
 Plugin 'jzdxeb/vim-snippets'
 Plugin 'taglist.vim'
 call vundle#end()            " required
-
+" ===================
 
 " ctrlp
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 " for nerd tree
-nmap <F2> :NERDTreeToggle<CR>
+map <F2> :NERDTreeToggle<CR>
 let NERDTreeWinPos="right"
 
-if executable('ag')
-	let g:ackprg = 'ag --vimgrep'
-endif
 let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 if has("cscope")
         set cscopetag   " 使支持用 Ctrl+]  和 Ctrl+t 快捷键在代码间跳来跳去
@@ -128,15 +121,14 @@ if has("cscope")
         " show msg when any other cscope db added
         set cscopeverbose
 
-		nmap <leader>sa :cs add cscope.out<cr>
-		nmap <leader>ss :cs find s <C-R>=expand("<cword>")<cr><cr>
-		nmap <leader>sg :cs find g <C-R>=expand("<cword>")<cr><cr>
-		nmap <leader>sc :cs find c <C-R>=expand("<cword>")<cr><cr>
-		nmap <leader>st :cs find t <C-R>=expand("<cword>")<cr><cr>
-		nmap <leader>se :cs find e <C-R>=expand("<cword>")<cr><cr>
-		nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<cr><cr>
-		nmap <leader>si :cs find i <C-R>=expand("<cfile>")<cr><cr>
-		nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
+	nmap <leader>ss :cs find s <C-R>=expand("<cword>")<cr><cr>
+	nmap <leader>gg :cs find g <C-R>=expand("<cword>")<cr><cr> "definition
+	nmap <leader>gc :cs find c <C-R>=expand("<cword>")<cr><cr> "calling
+	nmap <leader>st :cs find t <C-R>=expand("<cword>")<cr><cr>
+	nmap <leader>ge :cs find e <C-R>=expand("<cword>")<cr><cr> "string
+	nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<cr><cr>
+	nmap <leader>si :cs find i <C-R>=expand("<cfile>")<cr><cr>
+	nmap <leader>gd :cs find d <C-R>=expand("<cword>")<cr><cr> "called
 endif
 
 "       taglist
@@ -174,15 +166,7 @@ let g:syntastic_go_checkers=['go', 'golint']
 let g:syntastic_javascript_checkers = ['jslint']
 "let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
-" ycm
-let g:ycm_min_num_of_chars_for_completion = 3 
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_complete_in_comments = 1
-nnoremap gd :YcmCompleter GoToDefinition<CR>
-nnoremap gdc :YcmCompleter GoToDeclaration <CR>
-nnoremap gr :YcmCompleter GoToReferences<CR>
 " ultisnips settings
-
-let g:UltiSnipsExpandTrigger="<c-\>"
+let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
