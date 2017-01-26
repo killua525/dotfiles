@@ -80,6 +80,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'fatih/vim-go'
 Plugin 'scrooloose/nerdtree'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 't9md/vim-quickhl'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -144,7 +145,7 @@ let Tlist_File_Fold_Auto_Close=1             " 自动折叠
 
 " Go Settings
 "
-let g:gotests_bin = '/root/goroot/bin/gotests'
+" let g:gotests_bin = '/root/goroot/bin/gotests'
 au FileType go nmap gr <Plug>(go-run)
 au FileType go nmap gb <Plug>(go-build)
 au FileType go nmap got <Plug>(go-test)
@@ -170,5 +171,27 @@ let g:syntastic_javascript_checkers = ['jslint']
 
 " ultisnips settings
 let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+" ycm
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
+let g:ycm_min_num_of_chars_for_completion = 3 
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_complete_in_comments = 1
+
+"let g:tern#command = ["node", '/root/node_modules/tern/bin/tern', '--no-port-file']
+" 比较喜欢用tab来选择补全...
+"function! MyTabFunction ()
+"   "let line = getline('.')
+"   "let substr = strpart(line, -1, col('.')+1)
+"   "let substr = matchstr(substr, "[^ \t]*$")
+"   "if strlen(substr) == 0
+"       "return "\<tab>"
+"   "endif
+"   "return pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>"
+"endfunction
+"inoremap <tab> <c-r>=MyTabFunction()<cr>
