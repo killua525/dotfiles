@@ -1,6 +1,6 @@
 " [general]
 set rtp+=~/.vim/bundle/Vundle.vim
-set term=ansi
+set term=linux
 let mapleader = ","
 set noswapfile
 " 关闭兼容模式
