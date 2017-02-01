@@ -26,6 +26,7 @@ if [ ! -f $HOME/.vimrc ];
 then 
 	ln -s $PWD/config/vimrc $HOME/.vimrc  &&\
 	ln -s $PWD/vim $HOME/.vim			&&\
+	ln -s $PWD/config/ycm_extra_conf.py $HOME/.ycm_extra_conf.py  &&\
 	git clone git@github.com:jzdxeb/Vundle.vim.git ~/.vim/bundle/Vundle.vim &&\
 	vim +PluginInstall +qall
 else
