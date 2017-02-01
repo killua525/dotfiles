@@ -74,7 +74,7 @@ set backspace=2
 filetype plugin on
 filetype plugin indent on
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+Plugin 'jzdxeb/Vundle.vim'
 Plugin 'tpope/vim-eunuch'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'kien/ctrlp.vim'
