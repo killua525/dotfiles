@@ -1,4 +1,10 @@
 " [general]
+if version >= 603
+    set helplang=cn
+    set encoding=utf-8
+endif
+set noeb
+set nobackup
 set spelllang=en_us
 set rtp+=~/.vim/bundle/Vundle.vim
 set term=linux
@@ -27,12 +33,11 @@ set shell=bash\ -i
 set cursorcolumn "CursorColumn
 set cursorline
 set cursorcolumn
-
 " [filetype]
 augroup filetype
     autocmd BufNewFile,BufRead *.markdown,*.md  set ft=markdown
+    autocmd BufNewFile *py exec ":call SetPythonTitle()"
 augroup END
-
 filetype on
 set cindent shiftwidth=4
 set encoding=utf-8 nobomb
@@ -41,34 +46,30 @@ set binary
 set noeol
 "再次打开光标位置在上次退出时的位置
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif  
+autocmd BufNewFile *.sh,*.java exec ":call SetTitle()" 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd Filetype make setlocal  noexpandtab shiftwidth=8 softtabstop=0
 autocmd Filetype python,c,cpp setlocal  expandtab sw=4 ts=4 st=4 
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
-
 " [key]
 set pastetoggle=<F9>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K> 
 nnoremap <C-L> <C-W><C-L> 
 nnoremap <C-H> <C-W><C-H> 
-
+nnoremap <F3> :g/^\s*$/d<CR> 
 " [color]
 highlight Comment ctermfg=blue guifg=green
 "set t_Co=256
 "set bg=dark
-
 " set showmode
 set title
 set titlestring=filename
-
 "       ctags
 set tag=tags;
-
 " [for mac]
 set backspace=2
-
 " [plugin]
 " ===================
 filetype plugin on
@@ -95,25 +96,20 @@ Plugin 'jzdxeb/vim-snippets'
 Plugin 'taglist.vim'
 call vundle#end()            " required
 " ===================
-
 " ctrlp
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
 " for nerd tree
 map <F2> :NERDTreeToggle<CR>
 let NERDTreeWinPos="right"
-
 let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:UltiSnipsJumpForwardTrigger = '<Tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-
 if has("cscope")
         set cscopetag   " 使支持用 Ctrl+]  和 Ctrl+t 快捷键在代码间跳来跳去
         " check cscope for definition of a symbol before checking ctags:
         " set to 1 if you want the reverse search order.
         set csto=1
-
         " add any cscope database in current directory
         if filereadable("cscope.out")
         cs add cscope.out
@@ -121,10 +117,8 @@ if has("cscope")
         elseif $CSCOPE_DB !=""
         cs add $CSCOPE_DB
         endif
-
         " show msg when any other cscope db added
         set cscopeverbose
-
 	nmap <leader>ss :cs find s <C-R>=expand("<cword>")<cr><cr>
 	nmap <leader>gg :cs find g <C-R>=expand("<cword>")<cr><cr> "definition
 	nmap <leader>gc :cs find c <C-R>=expand("<cword>")<cr><cr> "calling
@@ -134,7 +128,6 @@ if has("cscope")
 	nmap <leader>si :cs find i <C-R>=expand("<cfile>")<cr><cr>
 	nmap <leader>gd :cs find d <C-R>=expand("<cword>")<cr><cr> "called
 endif
-
 "       taglist
 " 按F8按钮，在窗口的左侧出现taglist的窗口,像vc的左侧的workpace
 nnoremap <silent> <F8> :TlistToggle<CR><CR>
@@ -143,7 +136,6 @@ let Tlist_Show_One_File=0                    " 只显示当前文件的tags
 let Tlist_Exit_OnlyWindow=1                  " 如果Taglist窗口是最后一个窗口则退出Vim
 " let Tlist_Use_Right_Window=1                 " 在右侧窗口中显示
 let Tlist_File_Fold_Auto_Close=1             " 自动折叠
-
 " Go Settings
 "
 " let g:gotests_bin = '/root/goroot/bin/gotests'
@@ -169,12 +161,10 @@ let g:go_fmt_command = "goimports"
 let g:syntastic_go_checkers=['go', 'golint']
 let g:syntastic_javascript_checkers = ['jslint']
 "let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
 " ultisnips settings
 let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
 " ycm
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
@@ -183,7 +173,10 @@ let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
 let g:ycm_min_num_of_chars_for_completion = 3 
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_complete_in_comments = 1
-
+let g:ycm_goto_buffer_command = 'horizontal-split'
+nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+" nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 "let g:tern#command = ["node", '/root/node_modules/tern/bin/tern', '--no-port-file']
 " 比较喜欢用tab来选择补全...
 "function! MyTabFunction ()
@@ -196,3 +189,37 @@ let g:ycm_complete_in_comments = 1
 "   "return pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>"
 "endfunction
 "inoremap <tab> <c-r>=MyTabFunction()<cr>
+func! SetTitle() 
+    "如果文件类型为.sh文件 
+    if &filetype == 'sh' 
+        call setline(1,"\#########################################################################") 
+        call append(line("."), "\# File Name: ".expand("%")) 
+        call append(line(".")+1, "\# Author: YourName") 
+        call append(line(".")+2, "\# mail: YourEmail") 
+        "call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+        call append(line(".")+3, "\# Created Time: ".strftime("%Y-%m-%d",localtime()))
+        call append(line(".")+4, "\#########################################################################") 
+        call append(line(".")+5, "\#!/bin/bash") 
+        call append(line(".")+6, "") 
+    else
+        call setline(1, "/*************************************************************************") 
+        call append(line("."), "    > File Name: ".expand("%")) 
+        call append(line(".")+1, "    > Author: YourName") 
+        call append(line(".")+2, "    > Mail: YourEmail ") 
+        "call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
+        call append(line(".")+3, "    > Created Time: ".strftime("%Y-%m-%d",localtime()))
+        call append(line(".")+4, " ************************************************************************/") 
+        call append(line(".")+5, "")
+    endif
+    "新建文件后，自动定位到文件末尾
+    autocmd BufNewFile * normal G
+endfunc 
+func! SetPythonTitle()
+    call setline(1,"#!/usr/bin/env python")
+    call append( line("."),"#-*- coding: utf-8 -*-" )
+    call append(line(".")+1," ")
+    call append(line(".")+2, "\# File Name: ".expand("%")) 
+    call append(line(".")+3, "\# Author: ") 
+    call append(line(".")+4, "\# mail: ") 
+    call append(line(".")+5, "\# Created Time: ".strftime("%Y-%m-%d",localtime()))    
+endfunc
