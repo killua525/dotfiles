@@ -14,9 +14,9 @@
 .AppleDesktop
 Network Trash Folder
 Temporary Items
+!vim/bundle/Vundle.vim/
+!vim/bundle/vim-snippets/
 vim/bundle/
-!vim/bundle/Vundle.vim
-!vim/bundle/vim-snippets
 .apdisk
 
 # Linux
