@@ -1,4 +1,5 @@
 " [general]
+set spelllang=en_us
 set rtp+=~/.vim/bundle/Vundle.vim
 set term=linux
 set history=100
