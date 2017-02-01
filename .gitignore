@@ -16,6 +16,7 @@ Network Trash Folder
 Temporary Items
 vim/bundle/
 !vim/bundle/Vundle.vim
+!vim/bundle/vim-snippets
 .apdisk
 
 # Linux
