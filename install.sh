@@ -2,7 +2,6 @@
 function help()
 {
 	echo "usage $0 vim/zsh";
-	return 0;
 }
 function clonezsh()
 {
@@ -38,7 +37,7 @@ function main()
 if [ $# != 1 ]
 then 
 	help;
-	exit 1;
+	exit 0;
 fi
 if [ $1 = "vim" ]
 then 
