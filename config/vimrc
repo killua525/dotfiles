@@ -75,7 +75,7 @@ set backspace=2
 filetype plugin on
 filetype plugin indent on
 call vundle#begin()
-Plugin 'jzdxeb/Vundle.vim'
+"Plugin 'jzdxeb/Vundle.vim'
 Plugin 'tpope/vim-eunuch'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'kien/ctrlp.vim'
@@ -94,6 +94,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'SirVer/ultisnips'
 Plugin 'jzdxeb/vim-snippets'
 Plugin 'taglist.vim'
+Plugin 'Rykka/riv.vim'
 call vundle#end()            " required
 " ===================
 " ctrlp

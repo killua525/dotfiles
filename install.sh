@@ -1,4 +1,5 @@
 #/bin/bash
+set -x
 function help()
 {
 	echo "usage $0 vim/zsh";
@@ -7,7 +8,7 @@ function clonezsh()
 {
 	if [ ! -d $HOME/.oh-my-zsh ]
 	then
-		git clone git@github.com:jzdxeb/oh-my-zsh.git  $HOME/.oh-my-zsh
+		git clone https://github.com/jzdxeb/oh-my-zsh.git  $HOME/.oh-my-zsh
 	fi
 }
 function zsh()
@@ -20,14 +21,13 @@ else
 	echo "file ~/.zshrc is exist"
 fi
 }
-function vim()
+function vimins()
 {
 if [ ! -f $HOME/.vimrc ];
 then 
 	ln -s $PWD/config/vimrc $HOME/.vimrc  &&\
 	ln -s $PWD/vim $HOME/.vim			&&\
 	ln -s $PWD/config/ycm_extra_conf.py $HOME/.ycm_extra_conf.py  &&\
-	git clone git@github.com:jzdxeb/Vundle.vim.git ~/.vim/bundle/Vundle.vim &&\
 	vim +PluginInstall +qall
 else
 	echo "file ~/.vimrc is exist"
@@ -42,7 +42,7 @@ then
 fi
 if [ $1 = "vim" ]
 then 
-	vim;
+	vimins;
 fi
 if [ $1 = "zsh" ]
 then 
