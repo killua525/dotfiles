@@ -25,6 +25,7 @@ set hlsearch
 set noignorecase
 set incsearch
 set expandtab
+set ts=4 st=4 sw=4
 " 总是显示状态栏
 set ruler
 set showmatch
