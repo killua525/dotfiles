@@ -1,0 +1,60 @@
+# ~/.gitconfig
+[core]
+  editor = vim
+[user]
+  email = jzdxeb@gmail.com
+  name = jzdxeb
+[push]
+  default = simple
+[grep]
+  extendRegexp = true
+  lineNumber = true
+#[color]
+#  ui = auto
+#  branch = auto
+#  diff = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+[commit]
+  verbose = true
+  gpgsign = false
+[diff "bin"]
+  textconv = hexdump -v -C
+[help]
+  autocorrect = 1
+[alias]
+  aa = add -A
+  ca = commit -vam
+  ci = commit -v
+  df = diff --color-words --word-diff-regex=.
+  di = diff
+  graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+  lg = log -p
+  noff = merge --no-ff
+  st = status
+  mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
+  mrstash = !sh -c 'git fetch $1 refs/pull-requests/$2/from:mr-$1-$2 && git checkout mr-$1-$2' -
+  unstage = reset HEAD --
+  d = difftool
+[credential]
+#  helper = store
+[difftool]
+  prompt = false
+[diff]
+	tool = vimdiff
+[merge]
+  ff=only
+[tig]
+  vertical-split = true
+  tab-size = 4

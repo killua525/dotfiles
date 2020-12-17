@@ -1,0 +1,38 @@
+echo "wellcome to $HOSTNAME"
+
+
+# alias vim="mvim"
+alias czsh="vi ~/.zshrc"
+alias cvi="vi ~/.vim/vimrc"
+alias cls="clear"
+alias grep="grep --color=auto"
+alias ..='cd ..'
+
+# FileSearch
+function f() { find . -iname "*$1*" ${@:2}; }
+function r() { grep "$1" ${@:2} -n -R  . ;}
+
+#mkdir and cd
+function mkcd() { mkdir -p "$@" && cd "$_"; }
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+#
+# for vim 
+export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/vimrc' | source \$MYVIMRC"
+
+# for tmux
+alias foo='echo I work with tmux, too'
+
+tmuxrc() {
+    local TMUXDIR=/tmp/russelltmuxserver
+    if ! [ -d $TMUXDIR ]; then
+        rm -rf $TMUXDIR
+        mkdir -p $TMUXDIR
+    fi
+    rm -rf $TMUXDIR/.sshrc.d
+    cp -r $SSHHOME/.sshrc $SSHHOME/bashsshrc $SSHHOME/sshrc $SSHHOME/.sshrc.d $TMUXDIR
+    SSHHOME=$TMUXDIR SHELL=$TMUXDIR/bashsshrc /usr/bin/tmux -S $TMUXDIR/tmuxserver $@
+}
+export SHELL=`which bash`

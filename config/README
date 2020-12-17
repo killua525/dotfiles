@@ -1,0 +1,25 @@
+# tmux
+
+tmux prefix和vim的Leader类似默认prefix 是CTRL+b 
+
+###  使用session
+
+` tmux new -s jzdxeb ` 新建 jzdxeb 会话
+` tmux a -t  jzdxeb ` 进入jzdxeb 会话
+` tmux ls ` 查看已打开的会话
+
+### 屏幕
+
+提前使用Prefix 
+
+|作用| 默认|配置| 备注|
+|:-:|:-:|:-:|:-:|
+|新建窗口|c| ~ | |
+|关闭窗口|&|k||
+|新建pane下方|"|\|||
+|新建pane右方|%|-||
+| 最大化pane| z ||最大化当前pane再按一次恢复正常|
+| 选择pane| 方向键|||
+|查看屏幕历史|[|||
+
+
