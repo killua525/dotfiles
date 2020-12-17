@@ -1,0 +1,19 @@
+# 设置 tab-size 为 4，默认为 8
+set tab-size = 4
+
+set vertical-split = true
+
+# 设置 blame-view 界面显示
+set blame-view-id = yes,color
+set blame-view-line-number = yes,interval=1
+
+# 重设 main-view，增加 commit Id 信息
+set main-view = date:default author:abbreviated id:yes,color \
+                line-number:no,interval=1 \
+                commit-title:graph=v2,refs=yes,overflow=no
+
+# 重设 tree-view 界面
+set tree-view = date:default author:abbreviated id:yes,color \
+                line-number:no,interval=5 \
+                mode file-size:units,width=0 \
+                file-name

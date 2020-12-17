@@ -1,0 +1,148 @@
+# rc
+if test -n "$ZSH_VERSION"; then
+  PROFILE_SHELL=zsh
+elif test -n "$BASH_VERSION"; then
+  shopt -u promptvars
+  PROFILE_SHELL=bash
+elif test -n "$KSH_VERSION"; then
+  PROFILE_SHELL=ksh
+elif test -n "$FCEDIT"; then
+  PROFILE_SHELL=ksh
+elif test -n "$PS3"; then
+  PROFILE_SHELL=unknown
+else
+  PROFILE_SHELL=sh
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+
+# export LANG=zh_CN.UTF-8
+[[ -n `which go` ]] && export GOPATH=`go env GOPATH` && export PATH=$GOPATH/bin:$PATH && export GO111MODULE=on
+
+update_PS1 () {
+  PS1="\[\e[33;1m\]\u\[\e[31;1m\]@\[\e[33;1m\]\h \[\e[36;1m\]\w\n\[\e[39;1m\]\D{%H:%M:%S}\[\e[31;1m\]$(__git_ps1) \[\e[37;1m\]\$ \[\e[0m\]"
+}
+
+PROMPT_COMMAND=update_PS1
+
+alias czsh="vim ~/.zshrc"
+alias cvi="vim ~/.vim/vimrc"
+alias cls="clear"
+alias grep="grep --color=auto"
+alias vi="vim --noplugin"
+
+alias ke='kubectl exec'
+alias kg='kubectl get'
+alias kl='kubectl logs'
+alias gst='git status'
+alias gaa='git add --all'
+alias gc='git commit -v'
+alias gd='git diff'
+alias gb='git branch'
+alias gco='git checkout'
+alias ..='cd ../'                           # Go back 1 directory level
+alias ll='ls -rlth'
+alias ga='git add'
+alias ...='cd ../../'                       # Go back 2 directory levels
+alias gbda='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'
+alias myip='curl ip.appspot.com'
+OS="`uname`"
+case $OS in
+  'Linux')
+    OS='Linux'
+    alias ls='ls --color=auto'
+    ;;
+  'FreeBSD')
+    OS='FreeBSD'
+    alias ls='ls -G'
+    ;;
+  'WindowsNT')
+    OS='Windows'
+    ;;
+  'Darwin') 
+    OS='Mac'
+    alias ls='ls -G'
+    alias mountReadWrite='/sbin/mount -uw /'
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    ;;
+  'SunOS')
+    OS='Solaris'
+    ;;
+  'AIX') ;;
+  *) ;;
+esac
+
+f() { find . -iname "*$1*" ${@:2}; }
+r() { grep "$1" ${@:2} -n -R  . ;}
+
+#   extract:  Extract most know archives with one command
+#   ---------------------------------------------------------
+extract () {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1     ;;
+      *.tar.gz)    tar xzf $1     ;;
+      *.bz2)       bunzip2 $1     ;;
+      *.rar)       unrar e $1     ;;
+      *.gz)        gunzip $1      ;;
+      *.tar)       tar xf $1      ;;
+      *.tbz2)      tar xjf $1     ;;
+      *.tgz)       tar xzf $1     ;;
+      *.zip)       unzip $1       ;;
+      *.Z)         uncompress $1  ;;
+      *.7z)        7z x $1        ;;
+      *)     echo "'$1' cannot be extracted via extract()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+#   ii:  display useful host related informaton
+#   -------------------------------------------------------------------
+ii() {
+  echo -e "\nYou are logged on ${RED}$HOST"
+  echo -e "\nAdditionnal information:$NC " ; uname -a
+  echo -e "\n${RED}Users logged on:$NC " ; w -h
+  echo -e "\n${RED}Current date :$NC " ; date
+  echo -e "\n${RED}Machine stats :$NC " ; uptime
+  echo -e "\n${RED}Current network location :$NC " ; scselect
+  echo -e "\n${RED}Public facing IP Address :$NC " ;myip
+  #echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
+  echo
+}
+
+dict() {
+vim ~/Library/Rime/wubi86_jidian_user.dict.yaml
+}
+
+syncrepo(){
+  for D in `find . -type d -depth 1`
+  do
+    pushd $D
+    git pull --rebase
+    git submodule update --init -f  -r
+    popd
+  done
+}
+
+src() {
+  source ~/.bashrc
+}
+
+mkcd() {
+  mkdir $1 && cd $1
+}
+
+[[ -f /usr/local/etc/profile.d/autojump.sh ]] && . /usr/local/etc/profile.d/autojump.sh
+[[ -f /usr/local/etc/bash_completion ]] && . /usr/local/etc/bash_completion
+
+
+# User specific aliases and functions
+[[ -s ~/.dotfiles/config/git-prompt.sh ]] && source ~/.dotfiles/config/git-prompt.sh
+[[ -s ~/.cargo/env ]] && source ~/.cargo/env
+

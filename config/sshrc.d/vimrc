@@ -1,0 +1,104 @@
+let mapleader=","
+
+set path+=** " search subdir
+set wildignore+=*.o,*~,*.pyc,*.class,*.swp
+
+set nocompatible   " Disable vi-compatibility
+set wildmenu
+set noswapfile
+set ts=2
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set incsearch
+set hlsearch
+set showmatch
+set backspace=2
+set spr " for vs window in right
+set cursorline
+set encoding=utf-8
+set showcmd
+set autochdir
+set textwidth=100
+set colorcolumn=101
+" Better display for messages
+set cmdheight=2
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+
+" set t_Co=256
+set background=light
+" set background=dark
+" 
+" colo gruvbox
+" let g:solarized_termcolors=256
+" colo solarized
+" colo molokai
+" colo  evening
+colo  desert
+" highlight Normal ctermfg=grey ctermbg=black
+
+" airline and airline_theme settings
+" set laststatus=2
+" let g:airline_exclude_preview = 1
+" let g:airline#extensions#tabline#fnamemod = ':t'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+" let g:airline#extensions#tabline#formatter = 'default'
+" " let g:airline_theme='solarized_flood'
+" let g:airline_theme='solarized'
+" " let g:airline_theme='light'
+
+" 命令行模式增强，ctrl - a到行首， -e 到行尾
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+noremap H ^
+noremap L $
+nnoremap gu gU
+nnoremap gl gu
+" Quickly close the current window
+nnoremap <leader>q :q<CR>
+nnoremap <leader>t :terminal<CR>
+
+" Quickly save the current file
+nnoremap <leader>w :w<CR>
+nnoremap <space> za
+
+au InsertEnter * let mapleader = ""
+
+" for no plugin
+set hidden
+set t_ti= t_te= " reserve file content on screen
+
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+
+nnoremap <F2> :set nu! rnu!<cr>
+nnoremap <F3> :set list!<cr>
+nnoremap <F5> :set paste!<cr>
+nnoremap <F6> :if exists("g:syntax_on") <BAR> syntax off <BAR> else <BAR> syntax enable <BAR> endif<cr>
+
+
+" 分Smart way to move between windows
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+
+inoremap jk <Esc>
+
+nnoremap <silent> vv <C-w>v
+
+"记住最后一次编辑的位置
+autocmd BufReadPost *
+      \ if line("'\"") > 1 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
+
+"
