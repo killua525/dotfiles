@@ -36,11 +36,11 @@ Plug 'SirVer/ultisnips', { 'for' : ['cpp','go','markdown'] } " snip engine
 Plug 'honza/vim-snippets', { 'for' : ['cpp','go','markdown'] } " snip
 Plug 'Shougo/echodoc.vim', { 'for' : ['cpp','go'] }
 Plug 'scrooloose/nerdcommenter' "Comment
-Plug 'ycm-core/YouCompleteMe',{ 'for' : ['cpp'] }
+Plug 'ycm-core/YouCompleteMe',{ 'for' : ['cpp'],'commit': '867de21', 'do': './install.py --clang-completer' }
 Plug 'vim-scripts/a.vim', {'for': ['cpp']}
 Plug 'Yggdroot/LeaderF'
 " Go
-Plug 'fatih/vim-go',{ 'for' : ['go'],'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go',{ 'for' : ['go'],'do': ':GoUpdateBinaries' }
 Plug 'rust-lang/rust.vim',{ 'for' : ['rust']}
 Plug 'racer-rust/vim-racer',{ 'for' : ['rust']}
 " for file type
