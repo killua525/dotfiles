@@ -29,6 +29,22 @@ update_PS1 () {
 
 PROMPT_COMMAND=update_PS1
 
+if command -v htop > /dev/null 2>&1; then 
+	alias top=htop
+fi
+if command -v prettyping > /dev/null 2>&1; then 
+	alias ping=prettyping
+fi
+if command -v ncdu > /dev/null 2>&1; then 
+	alias du=ncdu
+fi
+if command -v http > /dev/null 2>&1; then 
+	alias curl=http
+	alias wget=http
+fi
+if command -v htop > /dev/null 2>&1; then 
+	eval "$(fasd --init auto)"
+fi
 alias czsh="vim ~/.zshrc"
 alias cvi="vim ~/.vim/vimrc"
 alias cls="clear"
@@ -67,6 +83,7 @@ case $OS in
     OS='Mac'
     alias ls='ls -G'
     alias mountReadWrite='/sbin/mount -uw /'
+	alias pkgm="brew install"
     export HOMEBREW_NO_AUTO_UPDATE=1
     ;;
   'SunOS')
@@ -76,7 +93,6 @@ case $OS in
   *) ;;
 esac
 
-f() { find . -iname "*$1*" ${@:2}; }
 r() { grep "$1" ${@:2} -n -R  . ;}
 
 #   extract:  Extract most know archives with one command
@@ -120,6 +136,16 @@ dict() {
 vim ~/Library/Rime/wubi86_jidian_user.dict.yaml
 }
 
+init(){
+for c in fd htop fasd  prettyping ncdu http
+do
+	if command -v ${c} > /dev/null 2>&1;then
+	else
+		pkgm ${c}
+	fi
+done
+}
+
 syncrepo(){
   for D in `find . -type d -depth 1`
   do
@@ -145,4 +171,11 @@ mkcd() {
 # User specific aliases and functions
 [[ -s ~/.dotfiles/config/git-prompt.sh ]] && source ~/.dotfiles/config/git-prompt.sh
 [[ -s ~/.cargo/env ]] && source ~/.cargo/env
+
+
+# HSTR configuration - add this to ~/.zshrc
+alias hh=hstr                    # hh to be alias for hstr
+setopt histignorespace           # skip cmds w/ leading space from history
+export HSTR_CONFIG=hicolor       # get more colors
+bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
 
