@@ -1,6 +1,6 @@
 # ~/.gitconfig
 [core]
-	editor = vim
+	editor = nvim
 [user]
 	email = 19486826+killua525@users.noreply.github.com
 	name = killua525
