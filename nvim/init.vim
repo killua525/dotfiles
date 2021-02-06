@@ -1,4 +1,5 @@
 let do_syntax_sel_menu = 1
+let g:python3_host_prog= '~/.py3/bin/python3'
 let do_no_lazyload_menus = 1
 set laststatus=2
 set sw=4 ts=4
@@ -38,6 +39,14 @@ Plug 'Yggdroot/LeaderF'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Go
 call plug#end()
+
+let g:coc_global_extensions=[
+			\'coc-json',
+			\'coc-go',
+			\'coc-clangd',
+			\'coc-pyright',
+			\'coc-rls',
+			\]
 
 let mapleader=','
 

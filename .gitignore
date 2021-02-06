@@ -41,3 +41,4 @@ tags
 .tags
 !tags/
 vim/.netrwhist
+coc
