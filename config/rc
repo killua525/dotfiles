@@ -46,9 +46,8 @@ if command -v htop > /dev/null 2>&1; then
 	eval "$(fasd --init auto)"
 fi
 alias czsh="nvim ~/.zshrc"
-alias nvim="nvim -u ~/.dotfiles/vim/vimrc"
-alias vim="nvim -u ~/.dotfiles/vim/vimrc"
-alias cvi="nvim ~/.vim/vimrc"
+alias vim="nvim"
+alias cvi="nvim ~/.dotfiles/nvim/init.vim"
 alias cls="clear"
 alias grep="grep --color=auto"
 alias vi="nvim --noplugin"
@@ -182,3 +181,4 @@ setopt histignorespace           # skip cmds w/ leading space from history
 export HSTR_CONFIG=hicolor       # get more colors
 bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
 
+export XDG_CONFIG_HOME="${HOME}/.dotfiles"
