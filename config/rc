@@ -140,7 +140,9 @@ vim ~/Library/Rime/wubi86_jidian_user.dict.yaml
 init(){
 for c in fd htop fasd  prettyping ncdu http
 do
-	if command -v ${c} > /dev/null 2>&1;then
+	if command -v ${c} > /dev/null 2>&1;
+	then
+		echo ${c}
 	else
 		pkgm ${c}
 	fi
@@ -177,8 +179,8 @@ mkcd() {
 
 # HSTR configuration - add this to ~/.zshrc
 alias hh=hstr                    # hh to be alias for hstr
-setopt histignorespace           # skip cmds w/ leading space from history
+#setopt histignorespace           # skip cmds w/ leading space from history
 export HSTR_CONFIG=hicolor       # get more colors
-bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
+#bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
 
 export XDG_CONFIG_HOME="${HOME}/.dotfiles"
