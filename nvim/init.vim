@@ -1,5 +1,4 @@
 let do_syntax_sel_menu = 1
-let g:python3_host_prog= '~/.py3/bin/python3'
 let do_no_lazyload_menus = 1
 set laststatus=2
 set sw=4 ts=4
@@ -35,17 +34,17 @@ filetype indent on
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'honza/vim-snippets', { 'for' : ['cpp','go','markdown'] } " snip
 Plug 'scrooloose/nerdcommenter' "Comment
-Plug 'Yggdroot/LeaderF'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Go
 call plug#end()
 
 let g:coc_global_extensions=[
 			\'coc-json',
-			\'coc-go',
-			\'coc-clangd',
 			\'coc-pyright',
 			\'coc-rls',
+			\'coc-snippets',
+			\'coc-lists',
+			\'coc-sh',
 			\]
 
 let mapleader=','
@@ -65,20 +64,6 @@ if has('gui_macvim')
     set shell=/bin/zsh
     set guifont=Monaco:h16
 endif
-
-" leaderf
-let g:Lf_UseCache=0
-let g:Lf_UseVersionControlTool=0
-let g:Lf_ShowDevIcons = 0
-let g:Lf_ShortcutF = '<C-P>'
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_WindowHeight=0.3
-nnoremap <leader>c :LeaderfCommand<CR>
-let g:Lf_WildIgnore = {
-  \ 'dir': ['.svn','.git','.hg','.clangd','deps'],
-  \ 'file': ['*.bak','*.o','.py[co]','.git*','.DS_Store'] 
-  \}
 
 " ale
 " nmap <silent> ]c :ALENext<cr>
@@ -198,7 +183,7 @@ if has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
 else
-  set signcolumn=yes
+	"  set signcolumn=yes
 endif
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -338,3 +323,20 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+
+"coc-list 
+" grep word under cursor
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
+
+function! s:GrepArgs(...)
+  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+  return join(list, "\n")
+endfunction
+
+" Keymapping for grep word under cursor with interactive mode
+nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+nnoremap <silent> <Leader>f :<C-u>CocList files<cr>
+if has("autocmd")                                                          
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
+endif
