@@ -1,4 +1,11 @@
 {
+	"list.source.grep.command": "ag",
+	"workspace.workspaceFolderCheckCwd": true,
+	"coc.preferences.rootPatterns": [
+		".git",
+		".hg",
+		".projections.json"
+	],
 	"languageserver": {
 		"python": {
 			"command": "python3",
@@ -72,11 +79,6 @@
 			"rootPatterns": ["go.mod"],
 			"trace.server": "verbose",
 			"filetypes": ["go"]
-		},
-		"clangd": {
-			"command": "clangd",
-			"rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-			"filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
 		}
-	}
+  }
 }
