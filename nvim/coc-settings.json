@@ -1,4 +1,7 @@
 {
+	"coc.preferences.formatOnSaveFiletypes": [
+		"go"
+	],
 	"list.source.grep.command": "ag",
 	"workspace.workspaceFolderCheckCwd": true,
 	"coc.preferences.rootPatterns": [
@@ -74,7 +77,7 @@
 				}
 			}
 		} ,
-		"go": {
+		"golang": {
 			"command": "gopls",
 			"rootPatterns": ["go.mod"],
 			"trace.server": "verbose",
