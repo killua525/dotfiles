@@ -1,0 +1,235 @@
+let mapleader=','
+let do_syntax_sel_menu = 1
+let do_no_lazyload_menus = 1
+set laststatus=2
+set sw=4 ts=4
+set textwidth=79
+set nocompatible   " Disable vi-compatibility
+set backspace=2
+set noswapfile
+set noet
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936
+scriptencoding utf-8
+set path+=** " search subdir
+set wildignore+=*.o,*~,*.pyc,*.class,*.swp
+set wildmenu
+set incsearch
+set hlsearch
+set showmatch
+set splitright " for vs window in right
+set cursorline
+set showcmd
+set autochdir
+set spell
+set colorcolumn=101
+" Better display for messages
+set cmdheight=2
+set tags=./.tags;,.tags
+" for no plugin
+set hidden
+set t_ti= t_te= " reserve file content on screen
+set completeopt-=preview
+filetype indent on
+
+call plug#begin('~/.vim/plugged')
+Plug 'SirVer/ultisnips', { 'for' : ['cpp','go','markdown'] } " snip engine
+Plug 'honza/vim-snippets', { 'for' : ['cpp','go','markdown'] } " snip
+Plug 'Shougo/echodoc.vim', { 'for' : ['cpp','go'] }
+Plug 'scrooloose/nerdcommenter' "Comment
+Plug 'Yggdroot/LeaderF'
+" Go
+Plug 'fatih/vim-go',{ 'for' : ['go'],'do': ':GoUpdateBinaries' }
+" for file type
+Plug 'mileszs/ack.vim', { 'for' : ['cpp','go'] }
+call plug#end()
+
+if has('gui_macvim')
+    winpos 0 0            " 指定窗口出现的位置，坐标原点在屏幕左上角
+    " winpos 20 20            " 指定窗口出现的位置，坐标原点在屏幕左上角
+    set lines=76 columns=239 " 指定窗口大小，lines为高度，columns为宽度
+    " set lines=60 columns=160 " 指定窗口大小，lines为高度，columns为宽度
+    set guioptions-=m       " 隐藏菜单栏
+    set guioptions-=T       " 隐藏工具栏
+"    set guioptions-=L       " 隐藏左侧滚动条
+    set guioptions-=r       " 隐藏右侧滚动条
+    set guioptions+=b        " 显示底部滚动条
+    " set nowrap               " 设置不自动换行
+    set guicursor=i-ci:block-Cursor/lCursor
+    set shell=/bin/zsh
+    set guifont=Monaco:h16
+endif
+
+" leaderf
+let g:Lf_UseCache=0
+let g:Lf_UseVersionControlTool=0
+let g:Lf_ShowDevIcons = 0
+let g:Lf_ShortcutF = '<C-P>'
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_WindowHeight=0.3
+nnoremap <leader>c :LeaderfCommand<CR>
+let g:Lf_WildIgnore = {
+  \ 'dir': ['.svn','.git','.hg','.clangd','deps'],
+  \ 'file': ['*.bak','*.o','.py[co]','.git*','.DS_Store'] 
+  \}
+
+" ale
+" nmap <silent> ]c :ALENext<cr>
+" nmap <silent> [c :ALEPrevious<cr>
+" let g:ale_lint_on_text_changed='always'
+" let g:ale_lint_delay=3
+" let g:ale_lint_on_enter=0
+" let g:ale_lint_on_save=1
+" let g:ale_fix_on_save=1
+" let g:ale_sign_error='E'
+" let g:ale_sign_warning='W'
+" let g:ale_fixers = {
+"     \ 'go': ['goimports']
+"     \}
+" let g:ale_linters = {
+"       \   'go': ['gopls'],
+"       \   'csh': ['shell'],
+"       \   'zsh': ['shell'],
+"       \   'python': ['flake8', 'mypy', 'pylint'],
+"       \   'rust': ['cargo','rustc'],
+"       \   'c': [],
+"       \   'cc': [],
+"       \   'cxx': [],
+"       \   'cpp': [],
+"       \   'text': [],
+"       \}
+
+" vim-go 
+let g:go_referrers_mode = 'gopls'
+let g:go_implements_mode = 'gopls'
+let g:go_rename_command = 'gopls'
+let g:go_metalinter_command = "gopls"
+let g:go_list_type = 'quickfix'
+let g:go_list_autoclose = 1
+let g:go_diagnostics_enabled = 1
+let g:go_gopls_matcher = 'fuzzy'
+let g:go_fmt_command = 'goimports'
+let g:go_highlight_diagnostic_errors = 1
+let g:go_highlight_diagnostic_warnings = 1
+let g:go_highlight_string_spellcheck = 1
+let g:go_imports_autosave = 1
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+
+augroup jzdxeb
+  au InsertEnter * let mapleader = ""
+  au FileType qf nmap <buffer> <cr> <cr>:ccl<cr>
+  au FileType go nmap ge <Plug>(go-rename)
+  au FileType go nmap gs <Plug>(go-def-stack)
+  au FileType go nmap gr <Plug>(go-referrers)
+  au FileType cpp,c nmap gd :YcmCompleter GoTo<cr>
+  " last edit position
+  au BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+augroup END
+
+
+
+" ultiSnips-triggers
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsListSnippets='<c-l>'
+let g:UltiSnipsSnippetDirectories=['mysnippets','UltiSnips']
+let g:UltiSnipsEditSplit='vertical'
+let g:UltiSnipsSnippetsDir=$HOME.'/.vim/mysnippets'
+
+
+let g:echodoc_enable_at_startup = 1
+let g:echodoc#type = 'popup'
+
+command! -nargs=1 SS let @/ = '\V'.escape(<q-args>, '\')
+
+let g:ycm_auto_hover = ''
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+let g:ycm_error_symbol = 'E'
+let g:ycm_warning_symbol = 'W'
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+
+" ack plug
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep -w'
+endif
+
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+let g:ackhighlight = 1
+
+" super tab
+let g:SuperTabDefaultCompletionType = 'context'
+
+
+let g:c_space_errors = 1
+let g:c_gnu = 1
+let g:c_no_cformat = 1
+let g:c_no_curly_error = 1
+if exists('g:c_comment_strings')
+  unlet g:c_comment_strings
+endif
+
+" 命令行模式增强，ctrl - a到行首， -e 到行尾
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+noremap H ^
+noremap L $
+nnoremap gu gU
+nnoremap gl gu
+" Quickly close the current window
+nnoremap <leader>t :terminal<CR>
+
+" Quickly save the current file
+nnoremap <leader>w :w<CR>
+nnoremap <space> za
+
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+
+nnoremap <F2> :set nu! rnu!<cr>
+nnoremap <F3> :set list!<cr>
+nnoremap <F5> :set paste!<cr>
+nnoremap <F6> :if exists("g:syntax_on") <BAR> syntax off <BAR> else <BAR> syntax enable <BAR> endif<cr>
+
+
+" 分Smart way to move between windows
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+inoremap jk <Esc>
+
+
+autocmd FileType python setlocal et sta sw=4 sts=4
+set statusline=%1*\%<%.50F\             "显示文件名和文件路径 (%<应该可以去掉)
+set statusline+=%=%2*\%y%m%r%h%w\ %*        "显示文件类型及文件状态
+set statusline+=%3*\%{&ff}\[%{&fenc}]\ %*   "显示文件编码类型
+set statusline+=%4*\ row:%l/%L,col:%c\ %*   "显示光标所在行和列
+set statusline+=%5*\%3p%%\%*            "显示光标前文本所占总文本的比例
+" hi User1 cterm=none ctermfg=25 ctermbg=0
+" hi User2 cterm=none ctermfg=208 ctermbg=0
+" hi User3 cterm=none ctermfg=169 ctermbg=0
+" hi User4 cterm=none ctermfg=100 ctermbg=0
+" hi User5 cterm=none ctermfg=green ctermbg=0
+
+let g:rustfmt_autosave = 1
+let g:racer_cmd = $HOME . '/.cargo/bin/racer'
+let g:racer_experimental_completer = 1
+
+" nerdcommenter settings
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
+

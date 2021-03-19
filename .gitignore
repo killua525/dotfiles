@@ -43,3 +43,8 @@ tags
 vim/.netrwhist
 nvim/.netrwhist
 coc
+
+# autojump
+autojump
+
+configstore
