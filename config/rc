@@ -191,7 +191,6 @@ mkcd() {
 [[ -s ~/.dotfiles/config/git-prompt.sh ]] && source ~/.dotfiles/config/git-prompt.sh
 [[ -s ~/.cargo/env ]] && source ~/.cargo/env
 
-[[ ! -h ~/.dotfiles/nvim ]] && ln -s ~/.dotfiles/vim ~/.dotfiles/nvim  && echo "touch nvim"
 [[ ! -h ~/.vim ]] && ln -s ~/.dotfiles/vim ~/.vim  && echo "touch .vim"
 
 # HSTR configuration - add this to ~/.zshrc
