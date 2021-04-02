@@ -27,7 +27,7 @@ export LANG=en_US.UTF-8
 [[ -n `which go` ]] && export GOPATH=`go env GOPATH` && export PATH=$GOPATH/bin:$PATH && export GO111MODULE=on
 
 update_PS1 () {
-  PS1="\[\e[33;1m\]\u\[\e[31;1m\]@\[\e[33;1m\]\h \[\e[36;1m\]\w\n\[\e[39;1m\]\D{%H:%M:%S}\[\e[31;1m\]$(__git_ps1) \[\e[37;1m\]\$ \[\e[0m\]"
+  PS1="\[\e[33;1m\]\u\[\e[31;1m\]@\[\e[33;1m\]\h $(kube_ps1) \[\e[36;1m\]\w\n\[\e[39;1m\]\D{%H:%M:%S}\[\e[31;1m\]$(__git_ps1) \[\e[37;1m\]\$ \[\e[0m\]"
 }
 
 PROMPT_COMMAND=update_PS1
@@ -189,6 +189,7 @@ mkcd() {
 
 # User specific aliases and functions
 [[ -s ~/.dotfiles/config/git-prompt.sh ]] && source ~/.dotfiles/config/git-prompt.sh
+[[ -s ~/.dotfiles/config/kube-ps1.sh ]] && source ~/.dotfiles/config/kube-ps1.sh
 [[ -s ~/.cargo/env ]] && source ~/.cargo/env
 
 [[ ! -h ~/.vim ]] && ln -s ~/.dotfiles/vim ~/.vim  && echo "touch .vim"
