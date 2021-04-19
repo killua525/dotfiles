@@ -2,8 +2,10 @@ let mapleader=','
 let do_syntax_sel_menu = 1
 let do_no_lazyload_menus = 1
 set laststatus=2
-set sw=4 ts=4
+set sw=4 ts=4 sts=4
+set softtabstop=4 
 set textwidth=79
+set expandtab
 set nocompatible   " Disable vi-compatibility
 set backspace=2
 set noswapfile
