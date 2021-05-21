@@ -40,6 +40,7 @@ Plug 'honza/vim-snippets', { 'for' : ['cpp','go','markdown'] } " snip
 Plug 'Shougo/echodoc.vim', { 'for' : ['cpp','go'] }
 Plug 'scrooloose/nerdcommenter' "Comment
 Plug 'Yggdroot/LeaderF'
+Plug 'ycm-core/YouCompleteMe', { 'for' : ['cpp'],'do': './install.py --clang-completer' }
 " Go
 Plug 'fatih/vim-go',{ 'for' : ['go'],'do': ':GoUpdateBinaries' }
 " for file type

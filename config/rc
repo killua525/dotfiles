@@ -3,7 +3,7 @@ if test -n "$ZSH_VERSION"; then
 	PROFILE_SHELL=zsh
 	setopt histignorespace           # skip cmds w/ leading space from history
 	bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
-	alias czsh="nvim ~/.zshrc"
+	alias czsh="vim ~/.zshrc"
 elif test -n "$BASH_VERSION"; then
 	shopt -u promptvars
 	PROFILE_SHELL=bash
