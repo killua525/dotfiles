@@ -28,7 +28,7 @@
 	untracked = cyan
 [commit]
 	verbose = true
-	gpgsign = false
+	gpgsign = true
 [diff "bin"]
 	textconv = hexdump -v -C
 [help]
@@ -60,3 +60,5 @@
 [tig]
 	vertical-split = true
 	tab-size = 4
+[tag]
+	forcesignannotated = true
