@@ -200,3 +200,4 @@ export HSTR_CONFIG=hicolor       # get more colors
 
 export XDG_CONFIG_HOME="${HOME}/.dotfiles"
  
+export GPG_TTY=$(tty)
