@@ -43,7 +43,7 @@
 	lg = log -p
 	noff = merge --no-ff
 	st = status
-	mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
+	mr = !sh -c 'git fetch $1 pull/$2/head:pr-$1-$2 && git checkout pr-$1-$2' -
 	mrstash = !sh -c 'git fetch $1 refs/pull-requests/$2/from:mr-$1-$2 && git checkout mr-$1-$2' -
 	unstage = reset HEAD --
 	d = difftool
