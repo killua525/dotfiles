@@ -45,6 +45,7 @@ Plug 'ycm-core/YouCompleteMe', { 'for' : ['cpp'],'do': './install.py --clang-com
 Plug 'fatih/vim-go',{ 'for' : ['go'],'do': ':GoUpdateBinaries' }
 " for file type
 Plug 'mileszs/ack.vim', { 'for' : ['cpp','go'] }
+Plug 'rhysd/vim-clang-format', { 'for' : ['cpp'] }
 call plug#end()
 
 if has('gui_macvim')
