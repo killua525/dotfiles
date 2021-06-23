@@ -51,8 +51,12 @@ fi
 
 if command -v nvim > /dev/null 2>&1; then 
 	alias vim="nvim"
-	alias cvi="nvim ~/.dotfiles/nvim/init.vim"
-	alias vi="nvim --noplugin"
+	alias cvi="vim ~/.dotfiles/nvim/init.vim"
+	alias vi="vim --noplugin"
+elif command -v mvim > /dev/null 2>&1; then 
+	alias vim="mvim"
+	alias cvi="vim ~/.dotfiles/vim/vimrc"
+	alias vi="vim --noplugin"
 else
 	alias cvi="vim ~/.vim/vimrc"
 	alias vi="vim --noplugin"
