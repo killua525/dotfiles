@@ -3,7 +3,7 @@ if has("gui_macvim")
 "透明
 " set transparency=10 
 " fullscreen
-set fullscreen
+" set fullscreen
 set guifont=Monaco:h16
 
 endif
@@ -20,3 +20,4 @@ hi Visual     guibg=#2566FA
 " hi VertSplit guibg=#272822
 hi VertSplit guibg=#1B1D1E
 hi Cursor    guibg=#FF0000
+color  darkblue
