@@ -39,5 +39,3 @@ git commit -S<keyid> -m""
 ```shell
 gpg --export -a <keyid>
 ```
-
-
