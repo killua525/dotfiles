@@ -39,8 +39,8 @@ Plug 'SirVer/ultisnips', { 'for' : ['cpp','go','markdown'] } " snip engine
 Plug 'honza/vim-snippets', { 'for' : ['cpp','go','markdown'] } " snip
 Plug 'Shougo/echodoc.vim', { 'for' : ['cpp','go'] }
 Plug 'scrooloose/nerdcommenter' "Comment
+Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF'
-Plug 'ycm-core/YouCompleteMe', { 'for' : ['cpp'],'do': './install.py --clang-completer' }
 " Go
 Plug 'fatih/vim-go',{ 'for' : ['go'],'do': ':GoUpdateBinaries' }
 " for file type
@@ -111,7 +111,6 @@ augroup jzdxeb
   au FileType go nmap ge <Plug>(go-rename)
   au FileType go nmap gs <Plug>(go-def-stack)
   au FileType go nmap gr <Plug>(go-referrers)
-  au FileType cpp,c nmap gd :YcmCompleter GoTo<cr>
   " last edit position
   au BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$") |
@@ -133,15 +132,6 @@ let g:echodoc_enable_at_startup = 1
 let g:echodoc#type = 'popup'
 
 command! -nargs=1 SS let @/ = '\V'.escape(<q-args>, '\')
-
-let g:ycm_auto_hover = ''
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
-let g:ycm_error_symbol = 'E'
-let g:ycm_warning_symbol = 'W'
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " ack plug
 if executable('ag')
@@ -221,3 +211,8 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
