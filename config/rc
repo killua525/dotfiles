@@ -78,14 +78,18 @@ if command -v git > /dev/null 2>&1; then
 	alias gb='git branch'
 	alias gco='git checkout'
 	alias ga='git add'
+	alias gs='git switch'
+	alias gd='git branch -D'
 	alias gbda='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'
 	syncrepo(){
 	  for D in `find . -type d -depth 1`
 	  do
 	    pushd $D
 		git submodule deinit -f .
+		git stash 
 	    git pull --rebase
 	    git submodule update --init -f  -r
+		git stash  pop
 	    popd
 	  done
 	}
