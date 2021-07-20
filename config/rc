@@ -49,18 +49,8 @@ if command -v fasd> /dev/null 2>&1; then
 	eval "$(fasd --init auto)"
 fi
 
-if command -v nvim > /dev/null 2>&1; then 
-	alias vim="nvim"
-	alias cvi="vim ~/.dotfiles/nvim/init.vim"
-	alias vi="vim --noplugin"
-elif command -v mvim > /dev/null 2>&1; then 
-	alias vim="mvim"
-	alias cvi="vim ~/.dotfiles/vim/vimrc"
-	alias vi="vim --noplugin"
-else
-	alias cvi="vim ~/.vim/vimrc"
-	alias vi="vim --noplugin"
-fi
+alias cvi="vim ~/.vim/vimrc"
+alias vi="vim --noplugin"
 
 alias cls="clear"
 alias grep="grep --color=auto"

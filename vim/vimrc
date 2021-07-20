@@ -46,6 +46,7 @@ Plug 'fatih/vim-go',{ 'for' : ['go'],'do': ':GoUpdateBinaries' }
 " for file type
 Plug 'mileszs/ack.vim', { 'for' : ['cpp','go'] }
 Plug 'rhysd/vim-clang-format', { 'for' : ['cpp'] }
+Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 " leaderf
