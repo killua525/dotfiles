@@ -27,7 +27,11 @@ export LANG=en_US.UTF-8
 [[ -n `which go` ]] && export GOPATH=`go env GOPATH` && export PATH=$GOPATH/bin:$PATH && export GO111MODULE=on
 
 update_PS1 () {
-  PS1="\[\e[33;1m\]\u\[\e[31;1m\]@\[\e[33;1m\]\h $(kube_ps1) \[\e[36;1m\]\w\n\[\e[39;1m\]\D{%H:%M:%S}\[\e[31;1m\]$(__git_ps1) \[\e[37;1m\]\$ \[\e[0m\]"
+  # PS1="\[\e[33;1m\]\u\[\e[31;1m\]@\[\e[33;1m\]\h $(kube_ps1) \[\e[36;1m\]\w\n\[\e[39;1m\]\D{%H:%M:%S}\[\e[31;1m\]$(__git_ps1) \[\e[37;1m\]\$ \[\e[0m\]"
+  # only pwd
+  # PS1="\[\e[31;1m\]$(kube_ps1)$(__git_ps1) \[\e[37;1m\] at \[\e[36;1m\] \H in \[\e[39;1m\] \w\n \D{%H:%M:%S} \$ \[\e[0m\]"
+  # PS1="\e[1;35m\u\e[m at \e[1;31m\h\e[m in \e[1;32m\w\e[m\n\e[1;36m$(kube_ps1)$(__git_ps1)\e[m > "
+  PS1="\e[1;32m\w\e[m\e[1;36m$(kube_ps1)$(__git_ps1)\e[m > "
 }
 
 PROMPT_COMMAND=update_PS1
@@ -195,7 +199,10 @@ mkcd() {
 # HSTR configuration - add this to ~/.zshrc
 alias hh=hstr                    # hh to be alias for hstr
 export HSTR_CONFIG=hicolor       # get more colors
+alias python=python3
 
 export XDG_CONFIG_HOME="${HOME}/.dotfiles"
  
 export GPG_TTY=$(tty)
+
+export PATH="$(python3 -c 'import site; print(site.USER_BASE)')/bin:${PATH}"
