@@ -47,6 +47,8 @@ Plug 'fatih/vim-go',{ 'for' : ['go'],'do': ':GoUpdateBinaries' }
 Plug 'mileszs/ack.vim', { 'for' : ['cpp','go'] }
 Plug 'rhysd/vim-clang-format', { 'for' : ['cpp'] }
 Plug 'editorconfig/editorconfig-vim'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 call plug#end()
 
 " leaderf
@@ -62,32 +64,6 @@ let g:Lf_WildIgnore = {
   \ 'dir': ['.svn','.git','.hg','.clangd','deps'],
   \ 'file': ['*.bak','*.o','.py[co]','.git*','.DS_Store'] 
   \}
-
-" ale
-" nmap <silent> ]c :ALENext<cr>
-" nmap <silent> [c :ALEPrevious<cr>
-" let g:ale_lint_on_text_changed='always'
-" let g:ale_lint_delay=3
-" let g:ale_lint_on_enter=0
-" let g:ale_lint_on_save=1
-" let g:ale_fix_on_save=1
-" let g:ale_sign_error='E'
-" let g:ale_sign_warning='W'
-" let g:ale_fixers = {
-"     \ 'go': ['goimports']
-"     \}
-" let g:ale_linters = {
-"       \   'go': ['gopls'],
-"       \   'csh': ['shell'],
-"       \   'zsh': ['shell'],
-"       \   'python': ['flake8', 'mypy', 'pylint'],
-"       \   'rust': ['cargo','rustc'],
-"       \   'c': [],
-"       \   'cc': [],
-"       \   'cxx': [],
-"       \   'cpp': [],
-"       \   'text': [],
-"       \}
 
 " vim-go 
 let g:go_referrers_mode = 'gopls'
