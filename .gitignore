@@ -48,3 +48,4 @@ coc
 autojump
 
 configstore
+vim/autoload/plug.vim.old
