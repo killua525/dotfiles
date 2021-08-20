@@ -49,3 +49,4 @@ autojump
 
 configstore
 vim/autoload/plug.vim.old
+vim/vimrc
