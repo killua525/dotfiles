@@ -1,4 +1,6 @@
 let mapleader=','
+filetype indent on
+set sw=4 ts=4 sts=4
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
@@ -208,3 +210,12 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
+nnoremap <space>e :CocCommand explorer<CR>
+
+let g:coc_global_extensions=[
+			\'coc-json',
+			\'coc-git',
+			\'coc-explorer',
+			\'coc-jedi',
+			\'coc-sh'
+			\]
