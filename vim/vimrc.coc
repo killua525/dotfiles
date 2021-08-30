@@ -2,7 +2,6 @@ let mapleader=','
 set cursorline
 filetype indent on
 set sw=4 ts=4 sts=4
-set nobk
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
@@ -17,6 +16,7 @@ nnoremap <leader>t :terminal<CR>
 
 " Quickly save the current file
 nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q!<CR>
 nnoremap <space> za
 
 nnoremap <Left> <Nop>

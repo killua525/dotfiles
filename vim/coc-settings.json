@@ -5,6 +5,20 @@
 			"rootPatterns": ["go.mod"],
 			"trace.server": "verbose",
 			"filetypes": ["go"]
+		},
+		"cpp": {
+			"command": "ccls",
+			"filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+			"rootPatterns": [".git",".ccls",".ccls-root", "build/compile_commands.json"],
+			"initializationOptions": {
+				"cache": {
+					"directory": "/tmp/ccls-cache"
+				},
+				"client": {
+					"snippetSupport": true
+				},
+				"compilationDatabaseDirectory": "build"
+			}
 		}
 	},
 	"coc.preferences.formatOnSaveFiletypes": ["go"],
