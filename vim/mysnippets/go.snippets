@@ -459,6 +459,36 @@ if !reflect.DeepEqual(${1:expected}, ${2:actual}) {
 }
 endsnippet
 
+# 
+snippet dbc "connect mysql"
+	conn := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", ${1:username}, ${2:passowrd}, ${3:network}, ${4:server}, ${5:port}, ${6:database})
+	DB, err := sql.Open("mysql", conn)
+	if err != nil {
+		fmt.Println("connection to mysql failed:", err)
+		return
+	}
+	rows, err := DB.Query("Show variables")
+	defer func() {
+		if rows != nil {
+			rows.Close() //关闭掉未scan的sql连接
+		}
+	}()
+	if err != nil {
+		fmt.Printf("Query failed,err:%v\n", err)
+		return
+	}
+	var a, b string
+	for rows.Next() {
+		err = rows.Scan(&a, &b) //不scan会导致连接不释放
+		if err != nil {
+			fmt.Printf("Scan failed,err:%v\n", err)
+			return
+		}
+	}
+}
+endsnippet
+
+
 global !p
 
 import re
