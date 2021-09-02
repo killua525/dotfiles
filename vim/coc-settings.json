@@ -50,6 +50,10 @@
 		"__pycache__",
 		"venv"
 	],
+	"snippets.ultisnips.directories": [
+		"UltiSnips",
+		"~/.dotfiles/vim/mysnippets/"
+	],
 	"explorer.root.customRules": {
 		"vcs": {
 			"patterns": [".git", ".hg", ".projections.json"]
