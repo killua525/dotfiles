@@ -49,6 +49,12 @@
 	d = difftool
 	logline = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	lg= log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --grep
+	glg = log --oneline --decorate --all --graph
+	amend = commit --amend --reuse-message=HEAD
+	changelog = log origin..HEAD --format='* %s%n%w(,4,4)%+b'
+	workon = "!f(){ git fetch && git checkout -b \"$1\" $(git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/@@\"); };f"
+	refresh = "!f(){ git fetch && git stash && git rebase $(git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/@@\") && git stash pop; };f"
+	cleanup-merged = "find . -name *json (){ git fetch && git branch --merged | grep -v '* ' | xargs git branch --delete; };f"
 [credential]
 #  helper = store
 [difftool]
