@@ -3,7 +3,7 @@
 if test -n "$ZSH_VERSION"; then
 	export ZSH="${HOME}/.oh-my-zsh"
 	export ZSH_CUSTOM="${HOME}/.dotfiles"
-	ZSH_THEME="robbyrussell"
+	ZSH_THEME="af-magic"
 	PROFILE_SHELL=zsh
 	setopt histignorespace           # skip cmds w/ leading space from history
 	plugins=(
