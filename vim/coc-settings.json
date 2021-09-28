@@ -21,7 +21,7 @@
 			}
 		}
 	},
-	"coc.preferences.formatOnSaveFiletypes": ["go"],
+	"coc.preferences.formatOnSaveFiletypes": ["go","rust"],
 	"jedi.enable": true,
 	"jedi.startupMessage": false,
 	"jedi.markupKindPreferred": "plaintext",
@@ -62,5 +62,6 @@
 			"patterns": [".git", ".hg", ".projections.json"],
 			"bottomUp": true
 		}
-	}
+	},
+	"rust-client.disableRustup":true
 }
