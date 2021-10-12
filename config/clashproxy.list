@@ -8,6 +8,7 @@ payload:
   - '+.art1lib.com'
   - '+.jp1lib.org'
   - '+.singlelogin.org'
+  - '+.knative.dev'
   - '+.ghcr.io'
 
 

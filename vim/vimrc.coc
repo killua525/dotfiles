@@ -1,41 +1,38 @@
 let mapleader=','
-set cursorline
-filetype indent on
+let do_syntax_sel_menu = 1
+let do_no_lazyload_menus = 1
+set laststatus=2
 set sw=4 ts=4 sts=4
-" 命令行模式增强，ctrl - a到行首， -e 到行尾
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-noremap H ^
-noremap L $
-nnoremap gu gU
-nnoremap gl gu
-" Quickly close the current window
-nnoremap <leader>t :terminal<CR>
-
-" Quickly save the current file
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q!<CR>
-nnoremap <space> za
-
-nnoremap <Left> <Nop>
-nnoremap <Right> <Nop>
-nnoremap <Up> <Nop>
-nnoremap <Down> <Nop>
-
-nnoremap <F2> :set nu! rnu!<cr>
-nnoremap <F3> :set list!<cr>
-nnoremap <F5> :set paste!<cr>
-nnoremap <F6> :if exists("g:syntax_on") <BAR> syntax off <BAR> else <BAR> syntax enable <BAR> endif<cr>
-
-
-" 分Smart way to move between windows
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-inoremap jk <Esc>
+set softtabstop=4 
+set textwidth=79
+set expandtab
+set nocompatible   " Disable vi-compatibility
+set backspace=2
+set noswapfile
+set noet
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936
+scriptencoding utf-8
+set path+=** " search subdir
+set wildignore+=*.o,*~,*.pyc,*.class,*.swp
+set wildmenu
+set incsearch
+set hlsearch
+set showmatch
+set splitright " for vs window in right
+set cursorline
+set showcmd
+set autochdir
+"set spell
+set colorcolumn=101
+" Better display for messages
+set cmdheight=2
+set tags=./.tags;,.tags
+" for no plugin
+set hidden
+set t_ti= t_te= " reserve file content on screen
+set completeopt-=preview
+filetype indent on
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
@@ -256,3 +253,38 @@ let g:coc_snippet_next = '<tab>'
 
 
 nmap <C-\> <Plug>(coc-git-nextchunk)
+" 命令行模式增强，ctrl - a到行首， -e 到行尾
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+noremap H ^
+noremap L $
+nnoremap gu gU
+nnoremap gl gu
+" Quickly close the current window
+nnoremap <leader>t :terminal<CR>
+
+" Quickly save the current file
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q!<CR>
+nnoremap <space> za
+
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+
+nnoremap <F2> :set nu! rnu!<cr>
+nnoremap <F3> :set list!<cr>
+nnoremap <F5> :set paste!<cr>
+nnoremap <F6> :if exists("g:syntax_on") <BAR> syntax off <BAR> else <BAR> syntax enable <BAR> endif<cr>
+
+
+" 分Smart way to move between windows
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+inoremap jk <Esc>
+
