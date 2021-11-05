@@ -10,6 +10,8 @@ payload:
   - '+.singlelogin.org'
   - '+.knative.dev'
   - '+.ghcr.io'
+  - '+.tidb.io'
+  - '+.feverss.cloud'
 
 
 

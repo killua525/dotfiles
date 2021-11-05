@@ -9,6 +9,8 @@ DOMAIN-SUFFIX,art1lib.com
 DOMAIN-SUFFIX,jp1lib.org
 DOMAIN-SUFFIX,singlelogin.org
 DOMAIN-SUFFIX,ghcr.io
+DOMAIN-SUFFIX,tidb.io
+DOMAIN-SUFFIX,feverss.cloud
 DOMAIN-SUFFIX,knative.dev
 # IP-CIDR,91.108.0.0/16,no-resolve
 # IP-CIDR6,2001:67c:4e8::/48,no-resolve
