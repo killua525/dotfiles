@@ -1,18 +1,41 @@
-# ~/.zshrc
-# Path to your oh-my-zsh installation.
-#source ~/.dotfiles/config/rc
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-export ZSH=$HOME/.oh-my-zsh
+[ -f ~/.dotfiles/config/rc ] && source ~/.dotfiles/config/rc
+[[ ! -d ~/.zplug ]] \
+	&& git clone https://github.com/zplug/zplug ~/.zplug \
+	&& echo "zplug clone"
+
 export WORKON_HOME='~/.virtualenvs'
 export PATH="$WORKON_HOME/bin:$PATH"
 
-ZSH_THEME="dstufft"
+if test -n "$ZSH_VERSION"; then
+	PROFILE_SHELL=zsh
+	setopt histignorespace           # skip cmds w/ leading space from history
+	alias czsh="vim ~/.zshrc"
+fi
+
 HIST_STAMPS="mm/dd/yyyy"
 HISTSIZE=10000
 SAVEHIST=10000
 SHARE_HISTORY=0
 
-plugins=(iterm2 tig brew zsh_reload  git autojump themes)
+function ii() {
+	echo -e "\nYou are logged on ${RED}$HOST"
+	echo -e "\nAdditionnal information:$NC " ; uname -a
+	echo -e "\n${RED}Users logged on:$NC " ; w -h
+	echo -e "\n${RED}Current date :$NC " ; date
+	echo -e "\n${RED}Machine stats :$NC " ; uptime
+	echo -e "\n${RED}Current network location :$NC " ; scselect
+	echo -e "\n${RED}Public facing IP Address :$NC " ;myip
+	#echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
+	echo
+}
+
 
 # FileSearch
 function f() { find . -iname "*$1*" ${@:2} }
@@ -20,17 +43,50 @@ function r() { grep "$1" ${@:2} -n -R  . }
 
 #mkdir and cd
 function mkcd() { mkdir -p "$@" && cd "$_"; }
+function src() { source ~/.zshrc }
 
 # Aliases
 alias cppcompile='c++ -std=c++11 -stdlib=libc++'
 setopt nonomatch
 
 
-source $ZSH/oh-my-zsh.sh
 # export LSCOLORS='CxfxcxdxbxegedabagGxGx'
 # export CLICOLOR='Yes'
 
-compdef sshrc=ssh
-bindkey \^U backward-kill-line
-
 export DYLD_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+[[ ! -f ~/.zplug/init.zsh ]] || source ~/.zplug/init.zsh
+
+export ZPLUG_HOME=~/.zplug
+
+
+# Make sure to use double quotes
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-completions"
+
+# Supports oh-my-zsh plugins and the like
+zplug "plugins/git",   from:oh-my-zsh
+zplug "plugins/brew",   from:oh-my-zsh
+zplug "plugins/reload",   from:oh-my-zsh
+zplug "plugins/autojump", from:oh-my-zsh
+
+zplug "romkatv/powerlevel10k", as:theme, depth:1
+zplug "k4rthik/git-cal", as:command, frozen:1
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+	zplug load --verbose
+fi
+zplug load 
+
+# Then, source plugins and add commands to $PATH
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

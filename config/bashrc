@@ -1,1 +1,110 @@
 source ~/.dotfiles/config/rc
+if test -n "$BASH_VERSION"; then
+	update_PS1 () {
+	  # PS1="\[\e[33;1m\]\u\[\e[31;1m\]@\[\e[33;1m\]\h $(kube_ps1) \[\e[36;1m\]\w\n\[\e[39;1m\]\D{%H:%M:%S}\[\e[31;1m\]$(__git_ps1) \[\e[37;1m\]\$ \[\e[0m\]"
+	  # only pwd
+	  # PS1="\[\e[31;1m\]$(kube_ps1)$(__git_ps1) \[\e[37;1m\] at \[\e[36;1m\] \H in \[\e[39;1m\] \w\n \D{%H:%M:%S} \$ \[\e[0m\]"
+	  # PS1="\e[1;35m\u\e[m at \e[1;31m\h\e[m in \e[1;32m\w\e[m\n\e[1;36m$(kube_ps1)$(__git_ps1)\e[m > "
+	  PS1="\h \[\e[1;32m\]\w\[\e[m\]\[\e[1;36m\]$(kube_ps1)$(__git_ps1)\[\e[m\] > "
+	}
+	PROMPT_COMMAND=update_PS1
+	shopt -u promptvars
+	PROFILE_SHELL=bash
+	[[ -f /usr/local/etc/bash_completion ]] && . /usr/local/etc/bash_completion
+	#   ii:  display useful host related informaton
+	#   -------------------------------------------------------------------
+	ii() {
+	  echo -e "\nYou are logged on ${RED}$HOST"
+	  echo -e "\nAdditionnal information:$NC " ; uname -a
+	  echo -e "\n${RED}Users logged on:$NC " ; w -h
+	  echo -e "\n${RED}Current date :$NC " ; date
+	  echo -e "\n${RED}Machine stats :$NC " ; uptime
+	  echo -e "\n${RED}Current network location :$NC " ; scselect
+	  echo -e "\n${RED}Public facing IP Address :$NC " ;myip
+	  #echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
+	  echo
+	}
+	
+	dict() {
+		vim ~/Library/Rime/wubi86_jidian_user.dict.yaml
+	}
+
+fi
+
+
+src() {
+  source ~/.bashrc
+}
+
+
+mkcd() {
+  mkdir $1 && cd $1
+}
+[[ -f /usr/local/etc/profile.d/autojump.sh ]] && . /usr/local/etc/profile.d/autojump.sh
+OS="`uname`"
+case $OS in
+  'Linux')
+    OS='Linux'
+    alias ls='ls --color=auto'
+    alias pkgm="yum install"
+    ;;
+  'FreeBSD')
+    OS='FreeBSD'
+    alias ls='ls -G'
+    ;;
+  'WindowsNT')
+    OS='Windows'
+    ;;
+  'Darwin') 
+    OS='Mac'
+    alias ls='ls -G'
+    alias mountReadWrite='/sbin/mount -uw /'
+    alias pkgm="brew install"
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    ;;
+  'SunOS')
+    OS='Solaris'
+    ;;
+  'AIX') ;;
+  *) ;;
+esac
+
+r() { grep "$1" ${@:2} -n -R  . ;}
+
+#   extract:  Extract most know archives with one command
+#   ---------------------------------------------------------
+extract () {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1     ;;
+      *.tar.gz)    tar xzf $1     ;;
+      *.bz2)       bunzip2 $1     ;;
+      *.rar)       unrar e $1     ;;
+      *.gz)        gunzip $1      ;;
+      *.tar)       tar xf $1      ;;
+      *.tbz2)      tar xjf $1     ;;
+      *.tgz)       tar xzf $1     ;;
+      *.zip)       unzip $1       ;;
+      *.Z)         uncompress $1  ;;
+      *.7z)        7z x $1        ;;
+      *)     echo "'$1' cannot be extracted via extract()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+
+init(){
+for c in fd htop fasd  prettyping ncdu http
+do
+	if command -v ${c} > /dev/null 2>&1;
+	then
+		echo ${c}
+	else
+		pkgm ${c}
+	fi
+done
+}
+
+
