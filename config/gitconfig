@@ -55,6 +55,7 @@
 	workon = "!f(){ git fetch && git checkout -b \"$1\" $(git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/@@\"); };f"
 	refresh = "!f(){ git fetch && git stash && git rebase $(git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/@@\") && git stash pop; };f"
 	cleanup-merged = "find . -name *json (){ git fetch && git branch --merged | grep -v '* ' | xargs git branch --delete; };f"
+	clean = clean -df
 [credential]
 #  helper = store
 [difftool]

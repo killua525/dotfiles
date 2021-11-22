@@ -66,6 +66,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ctrlpvim/ctrlp.vim'
 " for file type
 Plug 'editorconfig/editorconfig-vim'
 Plug 'w0rp/ale'
