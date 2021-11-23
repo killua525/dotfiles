@@ -6,9 +6,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 [ -f ~/.dotfiles/config/rc ] && source ~/.dotfiles/config/rc
-[[ ! -d ~/.zplug ]] \
-	&& git clone https://github.com/zplug/zplug ~/.zplug \
-	&& echo "zplug clone"
 
 export WORKON_HOME='~/.virtualenvs'
 export PATH="$WORKON_HOME/bin:$PATH"
@@ -56,6 +53,9 @@ setopt nonomatch
 export DYLD_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+[[ ! -d ~/.zplug ]] \
+	&& git clone https://github.com/zplug/zplug ~/.zplug \
+	&& echo "zplug clone"
 [[ ! -f ~/.zplug/init.zsh ]] || source ~/.zplug/init.zsh
 
 export ZPLUG_HOME=~/.zplug
@@ -72,6 +72,8 @@ zplug "plugins/git",   from:oh-my-zsh
 zplug "plugins/brew",   from:oh-my-zsh
 zplug "plugins/reload",   from:oh-my-zsh
 zplug "plugins/autojump", from:oh-my-zsh
+zplug "plugins/kubectl",   from:oh-my-zsh
+zplug "plugins/cp",   from:oh-my-zsh
 
 zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "k4rthik/git-cal", as:command, frozen:1

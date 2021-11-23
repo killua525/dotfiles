@@ -14,9 +14,6 @@ if command -v prettyping > /dev/null 2>&1; then
 	alias ping=prettyping
 fi
 
-if command -v ncdu > /dev/null 2>&1; then 
-	alias du=ncdu
-fi
 if command -v http > /dev/null 2>&1; then 
 	alias curl=http
 	alias wget=http
@@ -36,38 +33,8 @@ alias mkdir='mkdir -v'
 alias cp='cp -v'
 alias rm='rm -v'
 alias ln='ln -v'
-
-if command -v kubectl > /dev/null 2>&1; then 
-	alias ke='kubectl exec'
-	alias kg='kubectl get'
-	alias kl='kubectl logs'
-fi
-if command -v git > /dev/null 2>&1; then 
-	alias gst='git status'
-	alias gaa='git add --all'
-	alias gc='git commit -v -S'
-	alias gd='git diff'
-	alias gb='git branch'
-	alias gco='git checkout'
-	alias ga='git add'
-	alias gs='git switch'
-	alias gd='git branch -D'
-	alias gbda='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'
-	syncrepo(){
-	  for D in `find . -type d -depth 1`
-	  do
-	    pushd $D
-		git submodule deinit -f .
-		git stash 
-	    git pull --rebase
-	    git submodule update --init -f  -r
-		git stash  pop
-	    popd
-	  done
-	}
-fi
 alias ..='cd ../'                           # Go back 1 directory level
-alias ll='ls -rlth'
+alias ll='ls -Grlth'
 alias ...='cd ../../'                       # Go back 2 directory levels
 alias myip='curl ip.appspot.com'
 
