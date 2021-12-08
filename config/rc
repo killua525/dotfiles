@@ -49,3 +49,4 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 export PATH="$(python3 -c 'import site; print(site.USER_BASE)')/bin:${PATH}"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export GPG_TTY=$(tty) 
