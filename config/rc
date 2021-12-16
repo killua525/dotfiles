@@ -42,11 +42,9 @@ alias myip='curl ip.appspot.com'
 
 [[ ! -h ~/.vim ]] && ln -s ~/.dotfiles/vim ~/.vim  && echo "touch .vim"
 
-export GPG_TTY=$(tty)
 export HSTR_CONFIG=hicolor       # get more colors
 export XDG_CONFIG_HOME="${HOME}/.config"
  
 export PATH="$(python3 -c 'import site; print(site.USER_BASE)')/bin:${PATH}"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export GPG_TTY=$(tty) 

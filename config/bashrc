@@ -121,3 +121,5 @@ if command -v git > /dev/null 2>&1; then
 	}
 fi
 
+
+export GPG_TTY=$(tty) 
