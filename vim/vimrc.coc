@@ -251,8 +251,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
-
 
 nmap <C-\> <Plug>(coc-git-nextchunk)
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
