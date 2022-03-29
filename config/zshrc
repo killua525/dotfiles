@@ -104,3 +104,4 @@ export GPG_TTY=$TTY
 # export LSCOLORS='CxfxcxdxbxegedabagGxGx'
 # export CLICOLOR='Yes'
 export DYLD_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
+export FPATH=${HOME}/.fpath:$FPATH
