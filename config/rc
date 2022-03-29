@@ -37,6 +37,7 @@ alias ..='cd ../'                           # Go back 1 directory level
 alias ll='ls -Grlth'
 alias ...='cd ../../'                       # Go back 2 directory levels
 alias myip='curl ip.appspot.com'
+alias sshproxy='ssh -N -f -D '
 
 
 

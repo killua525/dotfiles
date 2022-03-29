@@ -1,28 +1,12 @@
 {
 	"languageserver": {
-		"go": {
+		"gopls": {
 			"command": "gopls",
-			"rootPatterns": ["go.mod"],
-			"trace.server": "verbose",
+			"rootPatterns": ["go.mod",".vim/", ".git/", ".hg/"],
 			"filetypes": ["go"]
-		},
-		"cpp": {
-			"command": "ccls",
-			"filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
-			"rootPatterns": [".git",".ccls",".ccls-root", "build/compile_commands.json"],
-			"initializationOptions": {
-				"cache": {
-					"directory": "/tmp/ccls-cache"
-				},
-				"client": {
-					"snippetSupport": true
-				},
-				"compilationDatabaseDirectory": "build"
-			}
 		}
 	},
-	"coc.preferences.formatOnSaveFiletypes": ["go","rust"],
-		"snippets.ultisnips.directories": [
+	"snippets.ultisnips.directories": [
 		"UltiSnips",
 		"~/.dotfiles/vim/mysnippets/"
 	],
