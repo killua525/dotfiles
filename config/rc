@@ -41,7 +41,7 @@ alias sshproxy='ssh -N -f -D '
 
 
 
-[[ ! -h ~/.vim ]] && ln -s ~/.dotfiles/vim ~/.vim  && echo "touch .vim"
+#[[ ! -h ~/.vim ]] && ln -s ~/.dotfiles/vim ~/.vim  && echo "touch .vim"
 
 export HSTR_CONFIG=hicolor       # get more colors
 export XDG_CONFIG_HOME="${HOME}/.config"
