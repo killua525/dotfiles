@@ -77,6 +77,7 @@ zplug "plugins/brew",   from:oh-my-zsh
 zplug "plugins/reload",   from:oh-my-zsh
 zplug "plugins/autojump", from:oh-my-zsh
 zplug "plugins/kubectl",   from:oh-my-zsh
+zplug "plugins/kube-ps1",   from:oh-my-zsh
 zplug "themes/ys",   from:oh-my-zsh
 zplug "plugins/cp",   from:oh-my-zsh
 
@@ -105,3 +106,4 @@ export GPG_TTY=$TTY
 # export CLICOLOR='Yes'
 export DYLD_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
 export FPATH=${HOME}/.fpath:$FPATH
+PROMPT='$(kube_ps1)'$PROMPT
