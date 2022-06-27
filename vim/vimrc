@@ -28,7 +28,7 @@ set whichwrap+=<,>,h,l
 
 
 " Ignore case when searching
-set ignorecase
+" set ignorecase
 
 " When searching try to be smart about cases
 set smartcase
@@ -74,7 +74,7 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme desert
+    colorscheme peaksea
 catch
 endtry
 
@@ -181,6 +181,7 @@ Plug 'rhysd/vim-clang-format', { 'for' : ['cpp'] }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'vim-scripts/peaksea'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -213,13 +214,11 @@ augroup go
   let g:go_list_autoclose = 1
   let g:go_diagnostics_enabled = 1
   let g:go_gopls_matcher = 'fuzzy'
-  let g:go_fmt_command = 'goimports'
+  let g:go_fmt_command = 'gopls'
   let g:go_highlight_diagnostic_errors = 1
   let g:go_highlight_diagnostic_warnings = 1
   let g:go_highlight_string_spellcheck = 1
   let g:go_imports_autosave = 1
-  let g:go_metalinter_autosave = 1
-  let g:go_metalinter_autosave_enabled = ['vet', 'golint']
   au InsertEnter * let mapleader = ""
   au FileType qf nmap <buffer> <cr> <cr>:ccl<cr>
   au FileType go nmap ge <Plug>(go-rename)
@@ -443,3 +442,9 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
+
+" last window close quickfix
+aug QFClose
+  au!
+  au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+aug END
