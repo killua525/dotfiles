@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+export EDITOR='vim';
+export LC_ALL=en_US.UTF-8;
+export LANG=en_US.UTF-8;
+export WORKON_HOME='~/.virtualenvs';
+export PATH="$WORKON_HOME/bin:$PATH";
+export LSCOLORS='CxfxcxdxbxegedabagGxGx';
+export CLICOLOR='Yes';
+export DYLD_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH;
+export HSTR_CONFIG=hicolor;       # get more colors
+export XDG_CONFIG_HOME="${HOME}/.config";
+export PATH="/usr/local/sbin:$(python3 -c 'import site; print(site.USER_BASE)')/bin:${PATH}";
+export LC_ALL=en_US.UTF-8;
+export LANG=en_US.UTF-8;
+export HISTSIZE='32768';
+export GPG_TTY=$(tty);

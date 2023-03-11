@@ -335,6 +335,7 @@ set statusline+=%=%2*\%y%m%r%h%w\ %*        "显示文件类型及文件状态
 set statusline+=%3*\%{&ff}\[%{&fenc}]\ %*   "显示文件编码类型
 set statusline+=%4*\ row:%l/%L,col:%c\ %*   "显示光标所在行和列
 set statusline+=%5*\%3p%%\%*            "显示光标前文本所占总文本的比例
+set laststatus=2
 " hi User1 cterm=none ctermfg=25 ctermbg=0
 " hi User2 cterm=none ctermfg=208 ctermbg=0
 " hi User3 cterm=none ctermfg=169 ctermbg=0
@@ -448,3 +449,4 @@ aug QFClose
   au!
   au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
 aug END
+

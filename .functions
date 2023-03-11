@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+r() { grep "$1" ${@:2} -n -R  . ;}
+src() { source ~/.bashrc ;}
