@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+alias cvi="vim ~/.vim/vimrc"
+alias vi="vim --noplugin"
+alias ls="ls -G"
+
+alias gst="git status"
+alias gaa="git add --all"
+alias gc="git commit "
+alias gco="git checkout "
+alias cls="clear"
+alias grep="grep --color=auto"
+alias mv='mv -v'
+alias mkdir='mkdir -v'
+alias cp='cp -v'
+alias rm='rm -v'
+alias ln='ln -v'
+alias ..='cd ../'                           # Go back 1 directory level
+alias ll='ls -Grlth'
+alias ...='cd ../../'                       # Go back 2 directory levels
+alias myip='curl ip.appspot.com'
+alias sshproxy='ssh -CqfTnN -D '
+alias icloud="killall bird  && killall cloudd"
+
+if command -v htop > /dev/null 2>&1; then 
+	alias top=htop
+fi
+
+if command -v prettyping > /dev/null 2>&1; then 
+	alias ping=prettyping
+fi
+
+if command -v http > /dev/null 2>&1; then 
+	alias curl=http
+	alias wget=http
+fi
+if command -v fasd> /dev/null 2>&1; then 
+	eval "$(fasd --init auto)"
+fi
+
+
