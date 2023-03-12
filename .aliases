@@ -2,7 +2,7 @@
 
 alias cvi="vim ~/.vim/vimrc"
 alias vi="vim --noplugin"
-alias ls="ls -G"
+alias ls="ls --color=auto"
 
 alias gst="git status"
 alias gaa="git add --all"
