@@ -2,3 +2,10 @@
 
 r() { grep "$1" ${@:2} -n -R  . ;}
 src() { source ~/.bashrc ;}
+fdotfiles() {
+    git clone https://github.com/killua525/dotfiles.git;
+    cd dotfiles;
+    source bootstrap.sh;
+    cd -;
+    rm -rf dotfiles;
+}
