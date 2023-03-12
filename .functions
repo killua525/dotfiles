@@ -3,9 +3,9 @@
 r() { grep "$1" ${@:2} -n -R  . ;}
 src() { source ~/.bashrc ;}
 fdotfiles() {
-    git clone https://github.com/killua525/dotfiles.git;
-    cd dotfiles;
+    git clone https://github.com/killua525/dotfiles.git /tmp/dotfiles;
+    pushd /tmp/dotfiles;
     source bootstrap.sh;
-    cd -;
-    rm -rf dotfiles;
+    popd;
+    rm -rf /tmp/dotfiles;
 }
