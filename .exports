@@ -15,3 +15,6 @@ export LC_ALL=en_US.UTF-8;
 export LANG=en_US.UTF-8;
 export HISTSIZE='32768';
 export GPG_TTY=$(tty);
+
+export HISTIGNORE="history:ls:pwd:";
+export HISTTIMEFORMAT='%F, %T ';
