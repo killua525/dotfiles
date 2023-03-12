@@ -8,6 +8,9 @@ alias gst="git status"
 alias gaa="git add --all"
 alias gc="git commit "
 alias gco="git checkout "
+alias gb="git branch"
+alias gbv="git branch -vv"
+
 alias cls="clear"
 alias grep="grep --color=auto"
 alias mv='mv -v'
