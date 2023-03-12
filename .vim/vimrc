@@ -4,6 +4,10 @@
 " leader key
 let mapleader=','
 
+set ttyfast
+set cursorline
+set title
+
 " auto read from file change 
 set autoread
 au FocusGained,BufEnter * checktime
