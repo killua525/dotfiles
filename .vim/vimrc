@@ -72,17 +72,18 @@ endif
 " Enable syntax highlighting
 syntax enable
 
+set background=dark
+set colorcolumn=101
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
 
 try
-    colorscheme peaksea
+    colorscheme koehler
 catch
 endtry
 
-set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -140,7 +141,6 @@ set foldcolumn=1
 
 
 "set spell
-set colorcolumn=101
 " Better display for messages
 set cmdheight=2
 set tags=./.tags;,.tags
