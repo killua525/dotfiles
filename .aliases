@@ -20,7 +20,7 @@ alias ln='ln -v'
 alias ..='cd ../'                           # Go back 1 directory level
 alias ll='ls -Grlth'
 alias ...='cd ../../'                       # Go back 2 directory levels
-alias myip='curl ip.appspot.com'
+alias myip='curl -4 -s http://icanhazip.com'
 alias sshproxy='ssh -CqfTnN -D '
 alias icloud="killall bird  && killall cloudd"
 
