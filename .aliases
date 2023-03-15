@@ -21,7 +21,7 @@ alias ..='cd ../'                           # Go back 1 directory level
 alias ll='ls -Grlth'
 alias ...='cd ../../'                       # Go back 2 directory levels
 alias myip='curl -4 -s http://icanhazip.com'
-alias sshproxy='ssh -CqfTnN -D '
+alias sshproxy='ssh -D 1080 -CqfTnN '
 alias icloud="killall bird  && killall cloudd"
 
 if command -v htop > /dev/null 2>&1; 
