@@ -8,12 +8,9 @@ set ttyfast
 set cursorline
 set title
 
-" auto read from file change 
+" auto read from file change
 set autoread
 au FocusGained,BufEnter * checktime
-
-" Fast saving
-nmap <leader>w :w!<cr> 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -29,7 +26,6 @@ endif
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
-
 
 " Ignore case when searching
 " set ignorecase
@@ -73,17 +69,12 @@ endif
 syntax enable
 
 set background=dark
-set colorcolumn=101
+colorscheme koehler
+set colorcolumn=81
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
-
-try
-    colorscheme koehler
-catch
-endtry
-
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -128,17 +119,8 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-
 " Add a bit extra margin to the left
 set foldcolumn=1
-
 
 "set spell
 " Better display for messages
@@ -167,172 +149,8 @@ elseif has("unix")
     set gfn=Monospace\ 11
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugin related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('~/.vim/plugged')
-Plug 'SirVer/ultisnips', { 'for' : ['cpp','go','markdown'] } " snip engine
-Plug 'honza/vim-snippets', { 'for' : ['cpp','go','markdown'] } " snip
-Plug 'Shougo/echodoc.vim', { 'for' : ['cpp','go'] }
-Plug 'preservim/nerdcommenter' "Comment
-Plug 'preservim/nerdtree'
-Plug 'Yggdroot/LeaderF'
-" Go
-Plug 'fatih/vim-go',{ 'for' : ['go'],'do': ':GoUpdateBinaries' }
-" for file type
-Plug 'mileszs/ack.vim', { 'for' : ['cpp','go'] }
-Plug 'rhysd/vim-clang-format', { 'for' : ['cpp'] }
-Plug 'editorconfig/editorconfig-vim'
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'vim-scripts/peaksea'
-call plug#end()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => leaderf settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" leaderf
-let g:Lf_UseCache=0
-let g:Lf_UseVersionControlTool=0
-let g:Lf_ShowDevIcons = 0
-let g:Lf_ShortcutF = '<C-P>'
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_WindowHeight=0.3
-nnoremap <leader>c :LeaderfCommand<CR>
-let g:Lf_WildIgnore = {
-  \ 'dir': ['.svn','.git','.hg','.clangd','deps'],
-  \ 'file': ['*.bak','*.o','.py[co]','.git*','.DS_Store'] 
-  \}
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim-go settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup go
-  au!
-  let g:go_referrers_mode = 'gopls'
-  let g:go_implements_mode = 'gopls'
-  let g:go_rename_command = 'gopls'
-  let g:go_metalinter_command = "gopls"
-  let g:go_list_type = 'quickfix'
-  let g:go_list_autoclose = 1
-  let g:go_diagnostics_enabled = 1
-  let g:go_gopls_matcher = 'fuzzy'
-  let g:go_fmt_command = 'gopls'
-  let g:go_highlight_diagnostic_errors = 1
-  let g:go_highlight_diagnostic_warnings = 1
-  let g:go_highlight_string_spellcheck = 1
-  let g:go_imports_autosave = 1
-  au InsertEnter * let mapleader = ""
-  au FileType qf nmap <buffer> <cr> <cr>:ccl<cr>
-  au FileType go nmap ge <Plug>(go-rename)
-  au FileType go nmap gs <Plug>(go-def-stack)
-  au FileType go nmap gr <Plug>(go-referrers)
-  " last edit position
-  au BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-        \   exe "normal! g`\"" |
-        \ endif
-augroup END
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => ultiSnips-triggers settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltiSnipsListSnippets='<c-l>'
-let g:UltiSnipsSnippetDirectories=['mysnippets','UltiSnips']
-let g:UltiSnipsEditSplit='vertical'
-let g:UltiSnipsSnippetsDir=$HOME.'/.vim/mysnippets'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => echodoc settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:echodoc_enable_at_startup = 1
-let g:echodoc#type = 'popup'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ack searching and cope displaying
-"    requires ack.vim - it's much better than vimgrep/grep
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ack plug
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep -w'
-endif
-
-" When you press gv you Ack after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" Open Ack and put the cursor in the right position
-map <leader>g :Ack
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" When you search with Ack, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-"
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
 " Make sure that enter is never overriden in the quickfix window
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-
-
-
-let g:c_space_errors = 1
-let g:c_gnu = 1
-let g:c_no_cformat = 1
-let g:c_no_curly_error = 1
-if exists('g:c_comment_strings')
-  unlet g:c_comment_strings
-endif
-
-" 命令行模式增强，ctrl - a到行首， -e 到行尾
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-noremap H ^
-noremap L $
-nnoremap gu gU
-nnoremap gl gu
-" Quickly close the current window
-nnoremap <leader>t :terminal<CR>
-
-" Quickly save the current file
-nnoremap <leader>w :w<CR>
-nnoremap <space> za
-
-nnoremap <Left> <Nop>
-nnoremap <Right> <Nop>
-nnoremap <Up> <Nop>
-nnoremap <Down> <Nop>
-
-nnoremap <F2> :set nu! rnu!<cr>
-nnoremap <F3> :set list!<cr>
-nnoremap <F5> :set paste!<cr>
-
-
-" 分Smart way to move between windows
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-inoremap jk <Esc>
-
-
 autocmd FileType python setlocal et sta sw=4 sts=4
 set statusline=%1*\%<%.50F\             "显示文件名和文件路径 (%<应该可以去掉)
 set statusline+=%=%2*\%y%m%r%h%w\ %*        "显示文件类型及文件状态
@@ -346,21 +164,6 @@ set laststatus=2
 " hi User4 cterm=none ctermfg=100 ctermbg=0
 " hi User5 cterm=none ctermfg=green ctermbg=0
 
-let g:rustfmt_autosave = 1
-let g:racer_cmd = $HOME . '/.cargo/bin/racer'
-let g:racer_experimental_completer = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => nerdcommenter settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-nnoremap <C-t> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen=1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General abbreviations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -368,89 +171,15 @@ iab xdate <C-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 
 command! -nargs=1 SS let @/ = '\V'.escape(<q-args>, '\')
 
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-func! DeleteTillSlash()
-    let g:cmd = getcmdline()
-
-    if has("win16") || has("win32")
-        let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
-    else
-        let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
-    endif
-
-    if g:cmd == g:cmd_edited
-        if has("win16") || has("win32")
-            let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
-        else
-            let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
-        endif
-    endif
-
-    return g:cmd_edited
-endfunc
-
-func! CurrentFileDir(cmd)
-    return a:cmd . " " . expand("%:p:h") . "/"
-endfunc
-
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction
-
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-    let l:currentBufNum = bufnr("%")
-    let l:alternateBufNum = bufnr("#")
-
-    if buflisted(l:alternateBufNum)
-        buffer #
-    else
-        bnext
-    endif
-
-    if bufnr("%") == l:currentBufNum
-        new
-    endif
-
-    if buflisted(l:currentBufNum)
-        execute("bdelete! ".l:currentBufNum)
-    endif
-endfunction
-
-function! CmdLine(str)
-    call feedkeys(":" . a:str)
-endfunction
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
 " last window close quickfix
 aug QFClose
   au!
   au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
 aug END
 
+try
+source ~/.vim/functions.vim
+source ~/.vim/keys.vim
+source ~/.vim/plugin.vim
+catch
+endtry
