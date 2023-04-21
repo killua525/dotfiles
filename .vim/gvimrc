@@ -1,0 +1,32 @@
+" Set extra options when running in GUI mode
+if has("gui_running")
+    """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " => GUI related
+    """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " Set font according to system
+    if has("mac") || has("macunix")
+    	set gfn=Fixedsys\ Excelsior\ 3.01:h16
+    	" set gfn=IBM\ Plex\ Mono:h14,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+    elseif has("win16") || has("win32")
+        set gfn=IBM\ Plex\ Mono:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+    elseif has("gui_gtk2")
+        set gfn=IBM\ Plex\ Mono\ 14,:Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+    elseif has("linux")
+        set gfn=IBM\ Plex\ Mono\ 14,:Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+    elseif has("unix")
+        set gfn=Monospace\ 11
+    endif
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
+
+" Properly disable sound on errors on MacVim
+if has("gui_macvim")
+    autocmd GUIEnter * set vb t_vb=
+	let macvim_hig_shift_movement = 1
+    colorscheme macvim
+    set columns=80
+    set lines=80
+endif
