@@ -13,3 +13,16 @@ fdotfiles() {
 with_proxy() {
     HTTPS_PROXY=socks5://127.0.0.1:1080 HTTP_PROXY=socks5://127.0.0.1:1080 "$@"
 }
+sdotfiles() {
+         rsync --exclude ".git/" \
+         --exclude ".DS_Store" \
+         --exclude ".osx" \
+         --exclude "bootstrap.sh" \
+         --exclude "README.md" \
+         --exclude "LICENSE" \
+         --exclude "brew.sh" \
+         --exclude "config" \
+         -avh --no-perms . ~;
+}
+
+
