@@ -64,7 +64,7 @@ set tm=500
 syntax enable
 
 set background=dark
-colorscheme elflord
+colorscheme peaksea
 set colorcolumn=81
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'

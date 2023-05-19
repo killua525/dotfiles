@@ -16,7 +16,6 @@ Plug 'rhysd/vim-clang-format', { 'for' : ['cpp'] }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-Plug 'vim-scripts/peaksea'
 call plug#end()
 
 
