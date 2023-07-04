@@ -18,3 +18,4 @@ export GPG_TTY=$(tty);
 export HISTIGNORE="history:ls:pwd:";
 export HISTTIMEFORMAT='%F, %T ';
 export TERM='xterm-256color';
+export TMUX_TMPDIR='~/.tmux/tmp'
