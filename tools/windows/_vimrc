@@ -1,0 +1,28 @@
+" Vim entry file for Windows (gVim/Vim).
+" Placed at: %USERPROFILE%\_vimrc
+"
+" Strategy
+"   - Treat %USERPROFILE%\vimfiles as runtime directory.
+"   - Source a vimrc from vimfiles if found (robust to different repo layouts).
+
+let s:home = expand('~')
+let s:vimfiles = s:home . '\vimfiles'
+
+if isdirectory(s:vimfiles)
+  let &runtimepath = s:vimfiles . ',' . s:vimfiles . '\after,' . &runtimepath
+  for s:cand in ['vimrc', '.vimrc', '_vimrc', 'init.vim', 'vimrc.vim', 'autoload\vimrc.vim']
+    let s:p = s:vimfiles . '\' . s:cand
+    if filereadable(s:p)
+      execute 'source' fnameescape(s:p)
+      finish
+    endif
+  endfor
+endif
+
+set nocompatible
+filetype plugin indent on
+syntax on
+set number
+set nowrap
+set backspace=indent,eol,start
+set hidden

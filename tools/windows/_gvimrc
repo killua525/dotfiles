@@ -1,0 +1,20 @@
+" gVim entry file for Windows.
+" Placed at: %USERPROFILE%\_gvimrc
+
+let s:home = expand('~')
+let s:vimfiles = s:home . '\vimfiles'
+
+if isdirectory(s:vimfiles)
+  for s:cand in ['gvimrc', '.gvimrc', 'gui.vim', 'after\gvimrc.vim']
+    let s:p = s:vimfiles . '\' . s:cand
+    if filereadable(s:p)
+      execute 'source' fnameescape(s:p)
+      finish
+    endif
+  endfor
+endif
+
+set guioptions-=T
+set guioptions-=m
+set guioptions-=r
+set guioptions-=L
