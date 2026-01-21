@@ -14,7 +14,17 @@ if isdirectory(s:vimfiles)
   endfor
 endif
 
+" Source the common _vimrc first to inherit all basic settings
+" This ensures consistency with the Unix-like configuration and console Vim.
+if filereadable(expand('$HOME\_vimrc'))
+  source $HOME\_vimrc
+endif
+
 set guioptions-=T
 set guioptions-=m
 set guioptions-=r
 set guioptions-=L
+set mouse=a       " Enable mouse in GVim
+set guifont=Consolas:h11:cANSI " Set font for GVim
+set lines=40      " Set initial window height
+set columns=120   " Set initial window width

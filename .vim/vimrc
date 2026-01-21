@@ -1,158 +1,124 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => general settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" leader key
-let mapleader=','
+" Main Vim configuration (sourced by platform-specific entry points)
 
-set ttyfast
-set cursorline
-set title
+" => General settings
+set nocompatible        " Behave like Vim, not Vi
+let mapleader=','       " Set leader key
 
-" auto read from file change
+" set ttyfast " Obsolete in modern Vim
+set cursorline          " Highlight current line
+set title               " Show file name in window title
+
+" Auto read from file change
 set autoread
 au FocusGained,BufEnter * checktime
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ignore compiled files
-set wildignore+=*.o,*~,*.pyc,*.class,*.swp
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
+" => UI and display
+" Ignore compiled files and common VCS directories
+set wildignore+=*.o,*~,*.pyc,*.class,*.swp,*.bak
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store " Unix-like specific, Windows will use its own or override
 
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
+" Configure backspace behavior
+set backspace=indent,eol,start
 set whichwrap+=<,>,h,l
 
-" Ignore case when searching
-" set ignorecase
+" Search settings
+" set ignorecase " Keep commented as smartcase is used
+set smartcase           " Smart case-sensitive search
+set hlsearch            " Highlight search results
+set incsearch           " Incremental search
 
-" When searching try to be smart about cases
-set smartcase
+" Performance and responsiveness
+set lazyredraw          " Don't redraw while executing macros
+set showmatch           " Show matching brackets
+set mat=2               " How many tenths of a second to blink when matching brackets
+set noerrorbells        " No annoying sound on errors
+set novisualbell        " No visual bell
+set t_vb=               " Disable visual bell
+set tm=500              " Timeout for key codes
 
-" Highlight search results
-set hlsearch
-
-" Makes search act like search in modern browsers
-set incsearch
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-
-" For regular expressions turn magic on
-set magic
-
-" Show matching brackets when text indicator is over them
-set showmatch
-
-" How many tenths of a second to blink when matching brackets
-set mat=2
-
-" No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax enable
+syntax enable           " Enable syntax highlighting
+set background=dark     " Set background to dark
+colorscheme peaksea     " Use peaksea colorscheme
+set colorcolumn=81      " Highlight column 81
 
-set background=dark
-colorscheme peaksea
-set colorcolumn=81
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
+" Enable true colors in modern terminals if supported
+if has("termguicolors")
+    set termguicolors
 endif
+" if $COLORTERM == 'gnome-terminal' " Less general
+"     set t_Co=256
+" endif
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
+" Encoding settings (crucial for cross-platform compatibility)
+set encoding=utf-8
+set fileencodings=utf-8,gbk,gb18030,latin1 " Robust file encoding detection
+set termencoding=utf-8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git etc. anyway...
-set nobackup
-set nowb
-set noswapfile
+set nobackup            " Turn backup off
+set nowb                " Turn write backup off
+set noswapfile          " Turn swap file off
+set hidden              " Allow switching buffers without saving
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
-set expandtab
+set expandtab           " Use spaces instead of tabs
+set smarttab            " Be smart when using tabs
+set shiftwidth=4        " 1 tab == 4 spaces for autoindent
+set tabstop=4           " 1 tab == 4 spaces for display
 
-" Be smart when using tabs ;)
-set smarttab
+set autoindent          " Auto indent
+set smartindent         " Smart indent
+set wrap                " Wrap lines
+set lbr                 " Linebreak on word boundaries
+set tw=500              " Text width (very large, effectively disables auto-wrapping)
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
-
-" Linebreak on 500 characters
-set lbr
-set tw=500
-
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-
-" Add a bit extra margin to the left
+" Add a bit extra margin to the left for foldcolumn
 set foldcolumn=1
 
-"set spell
 " Better display for messages
 set cmdheight=2
-set tags=./.tags;,.tags
-" for no plugin
-set hidden
-set t_ti= t_te= " reserve file content on screen
-set completeopt-=preview
-filetype indent on
+set tags=./.tags;,.tags " Tags file search path
+
+" Terminal settings
+set t_ti= t_te=         " Reserve file content on screen (useful for tmux/screen)
+set completeopt-=preview " Disable preview window for completion
+filetype indent on      " Enable filetype-specific indenting
 
 " Make sure that enter is never overriden in the quickfix window
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-autocmd FileType python setlocal et sta sw=4 sts=4
-set statusline=%1*\%<%.50F\             "显示文件名和文件路径 (%<应该可以去掉)
-set statusline+=%=%2*\%y%m%r%h%w\ %*        "显示文件类型及文件状态
-set statusline+=%3*\%{&ff}\[%{&fenc}]\ %*   "显示文件编码类型
-set statusline+=%4*\ row:%l/%L,col:%c\ %*   "显示光标所在行和列
-set statusline+=%5*\%3p%%\%*            "显示光标前文本所占总文本的比例
-set laststatus=2
-" hi User1 cterm=none ctermfg=25 ctermbg=0
-" hi User2 cterm=none ctermfg=208 ctermbg=0
-" hi User3 cterm=none ctermfg=169 ctermbg=0
-" hi User4 cterm=none ctermfg=100 ctermbg=0
-" hi User5 cterm=none ctermfg=green ctermbg=0
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Python specific indent settings
+autocmd FileType python setlocal et sta sw=4 sts=4
+
+" Custom statusline
+set statusline=%1*\%<%.50F\             " File name and path
+set statusline+=%=%2*\%y%m%r%h%w\ %*        " File type and status
+set statusline+=%3*\%{&ff}\[%{&fenc}]\ %*   " File encoding
+set statusline+=%4*\ row:%l/%L,col:%c\ %*   " Cursor line and column
+set statusline+=%5*\%3p%%\%*            " Percentage through file
+set laststatus=2                        " Always show statusline
+
 " => General abbreviations
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 iab xdate <C-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 
+" Custom command to search for a word
 command! -nargs=1 SS let @/ = '\V'.escape(<q-args>, '\')
 
-" last window close quickfix
+" Autocmd group for quickfix window closing
 aug QFClose
   au!
   au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
 aug END
 
+" Source additional configuration files from the same directory (.vim/)
+" These paths assume the .vim directory is the runtimepath or sourced directly
 try
-source ~/.vim/functions.vim
-source ~/.vim/keys.vim
-source ~/.vim/plugin.vim
+    source <sfile>:p:h/functions.vim
+    source <sfile>:p:h/keys.vim
+    source <sfile>:p:h/plugin.vim
 catch
 endtry
-
-
-

@@ -1,9 +1,7 @@
 import os
 import os.path
-import fnmatch
 import logging
 import ycm_core
-import re
 
 BASE_FLAGS = [
         '-Wall',
@@ -14,7 +12,7 @@ BASE_FLAGS = [
         '-fexceptions',
         '-ferror-limit=10000',
         '-DNDEBUG',
-        '-std=c++11',
+        '-std=c++17',
         '-xc++',
         '-I/usr/lib/',
         '-I/usr/include/'
@@ -122,7 +120,7 @@ def FlagsForClangComplete(root):
         clang_complete_path = FindNearest(root, '.clang_complete')
         clang_complete_flags = open(clang_complete_path, 'r').read().splitlines()
         return clang_complete_flags
-    except:
+    except Exception:
         return None
 
 def FlagsForInclude(root):
@@ -134,7 +132,7 @@ def FlagsForInclude(root):
                 real_path = os.path.join(dirroot, dir_path)
                 flags = flags + ["-I" + real_path]
         return flags
-    except:
+    except Exception:
         return None
 
 def FlagsForCompilationDatabase(root, filename):
@@ -155,7 +153,7 @@ def FlagsForCompilationDatabase(root, filename):
         return MakeRelativePathsInFlagsAbsolute(
                 compilation_info.compiler_flags_,
                 compilation_info.compiler_working_dir_)
-    except:
+    except Exception:
         return None
 
 def FlagsForFile(filename):
