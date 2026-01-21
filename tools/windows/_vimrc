@@ -19,10 +19,13 @@ if isdirectory(s:vimfiles)
   endfor
 endif
 
-set nocompatible
-filetype plugin indent on
-syntax on
-set number
-set nowrap
-set backspace=indent,eol,start
-set hidden
+" Source the main Vim configuration from vimfiles/vimrc
+" This ensures consistency with the Unix-like configuration.
+if filereadable(expand('$HOME\vimfiles\vimrc'))
+  source $HOME\vimfiles\vimrc
+endif
+
+" Windows-specific console Vim settings (e.g., mouse support)
+set mouse=a " Enable mouse in console Vim
+
+" No need for other general settings here, as they are sourced from vimfiles\vimrc
