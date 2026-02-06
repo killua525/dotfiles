@@ -4,13 +4,25 @@ set -e
 # 获取仓库根目录的绝对路径
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OS="$(uname -s)"
+IS_WSL=0
+
+if [[ "${OS}" == Linux* ]]; then
+    if [[ -r /proc/sys/kernel/osrelease ]] && grep -qi microsoft /proc/sys/kernel/osrelease; then
+        IS_WSL=1
+    elif [[ -r /proc/version ]] && grep -qi microsoft /proc/version; then
+        IS_WSL=1
+    fi
+fi
 
 echo "Detected OS: ${OS}"
+if [[ "${IS_WSL}" -eq 1 ]]; then
+    echo "Detected environment: WSL"
+fi
 
 case "${OS}" in
     Linux*|Darwin*)
-        # macOS / Linux 环境
-        bash "${REPO_ROOT}/bootstrap.sh" "$@"
+        # macOS / Linux / WSL 环境
+        bash "${REPO_ROOT}/tools/bootstrap.sh" "$@"
         ;;
     CYGWIN*|MINGW*|MSYS*)
         # Windows (Git Bash) 环境
