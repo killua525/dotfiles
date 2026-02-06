@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# 获取仓库根目录的绝对路径
+# 获取仓库根目录的绝对路径（若通过 curl 运行则可能不是仓库目录）
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OS="$(uname -s)"
 IS_WSL=0
@@ -17,6 +17,20 @@ fi
 echo "Detected OS: ${OS}"
 if [[ "${IS_WSL}" -eq 1 ]]; then
     echo "Detected environment: WSL"
+fi
+
+if [[ ! -f "${REPO_ROOT}/tools/bootstrap.sh" ]]; then
+    if command -v git >/dev/null 2>&1; then
+        TARGET_DIR="${HOME}/dotfiles"
+        echo "Repo not found at ${REPO_ROOT}, cloning into ${TARGET_DIR}..."
+        if [[ ! -d "${TARGET_DIR}/.git" ]]; then
+            git clone https://github.com/killua525/dotfiles.git "${TARGET_DIR}"
+        fi
+        REPO_ROOT="${TARGET_DIR}"
+    else
+        echo "Error: git not found. Please install git or clone the repo manually."
+        exit 1
+    fi
 fi
 
 case "${OS}" in
