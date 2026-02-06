@@ -1,4 +1,4 @@
-# Cross-platform bootstrap (macOS / Linux / Windows)
+# Cross-platform bootstrap (macOS / Linux / WSL2 / Windows)
 
 Repo notes:
 * `.vim/` is **Vim runtime/config directory** (unrelated to tig).
@@ -9,15 +9,15 @@ This repo provides cross-platform bootstrap scripts:
 * macOS/Linux: `tools/bootstrap.sh` (install/link) + `tools/update.sh` (git update)
 * Windows (gVim): `tools/windows/setup.ps1` + `tools/windows/_vimrc` + `tools/windows/_gvimrc`
 
-## What will be installed (macOS/Linux)
+## What will be installed (macOS/Linux/WSL2)
 
 Symlinks into `$HOME` (only if the source exists in repo root):
 
-* `.gitconfig`         -> `~/.gitconfig`
-* `.gitignore`         -> `~/.gitignore`
-* `.tigrc`             -> `~/.tigrc`
-* `.tmux.conf`         -> `~/.tmux.conf`
-* `.tmux-theme.conf`   -> `~/.tmux-theme.conf`
+* `gitconfig`          -> `~/.gitconfig`
+* `gitignore`          -> `~/.gitignore`
+* `tigrc`              -> `~/.tigrc`
+* `tmux.conf`          -> `~/.tmux.conf`
+* `tmux-theme.conf`    -> `~/.tmux-theme.conf`
 * `.vim`               -> `~/.vim`
 
 If a `config/` directory exists in repo root:
@@ -35,7 +35,7 @@ If a `config/` directory exists in repo root:
 
 ## Usage
 
-### macOS/Linux
+### macOS/Linux/WSL2
 
 ```bash
 git clone https://github.com/killua525/dotfiles.git ~/dotfiles
@@ -43,3 +43,8 @@ cd ~/dotfiles
 ./tools/update.sh
 ./tools/bootstrap.sh
 
+```
+
+### WSL2 notes
+
+WSL2 uses the Linux setup. Run the commands above inside your WSL2 distribution. If you also want Windows-native Vim/GVim settings, run the Windows setup script from a Windows shell.
