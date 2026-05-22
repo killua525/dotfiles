@@ -6,7 +6,7 @@ Windows.
 ## Features
 
 - Cross-platform setup for macOS, Linux, WSL2, and Windows.
-- Vim runtime configuration and plugins.
+- Vim, Neovim, MacVim, and gVim runtime configuration and plugins.
 - Git, tig, and tmux configuration.
 - Selected XDG config files, including `kube-ps1`.
 
@@ -43,9 +43,11 @@ cd ~/dotfiles
 - `~/.dotfiles` or `~/dotfiles`: the repository checkout.
 - `install.sh`: platform dispatcher for macOS, Linux, WSL2, and Windows Git Bash.
 - `tools/`: installation and update scripts.
-- `tools/windows/`: Windows gVim entry files and PowerShell setup script.
+- `tools/windows/`: Windows Vim/gVim entry files and PowerShell setup script.
 - `config/`: XDG configuration files linked into `~/.config`.
+- `config/nvim/init.vim`: Neovim entry point that reuses the shared Vim config.
 - `.vim/`: Vim runtime configuration.
+- `.vimrc` / `.gvimrc`: terminal Vim and GUI Vim entry points.
 
 See [CROSS_PLATFORM.md](CROSS_PLATFORM.md) for full setup details.
 

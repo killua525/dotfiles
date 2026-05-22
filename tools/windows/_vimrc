@@ -7,6 +7,7 @@
 
 let s:home = expand('~')
 let s:vimfiles = s:home . '\vimfiles'
+let g:dotfiles_vim_dir = s:vimfiles
 
 if isdirectory(s:vimfiles)
   let &runtimepath = s:vimfiles . ',' . s:vimfiles . '\after,' . &runtimepath

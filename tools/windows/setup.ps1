@@ -85,6 +85,10 @@ if (Test-Path ".git") {
 
 $repo = (Get-Location).Path
 $home = $HOME
+$localAppData = $env:LOCALAPPDATA
+if (-not $localAppData) {
+  $localAppData = Join-Path $home "AppData\Local"
+}
 
 Say "[info] repo: $repo"
 Say "[info] home: $home"
@@ -96,5 +100,6 @@ Link-Or-Copy (Join-Path $repo ".tigrc")     (Join-Path $home ".tigrc")
 Link-Or-Copy (Join-Path $repo ".vim") (Join-Path $home "vimfiles")
 Link-Or-Copy (Join-Path $repo "tools\windows\_vimrc")  (Join-Path $home "_vimrc")
 Link-Or-Copy (Join-Path $repo "tools\windows\_gvimrc") (Join-Path $home "_gvimrc")
+Link-Or-Copy (Join-Path $repo "config\nvim") (Join-Path $localAppData "nvim")
 
 Say "Done."

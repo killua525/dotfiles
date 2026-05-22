@@ -47,6 +47,8 @@ link_item() {
 }
 
 install_home_links() {
+  link_item "${REPO_ROOT}/.vimrc"           "${HOME_DIR}/.vimrc"
+  link_item "${REPO_ROOT}/.gvimrc"          "${HOME_DIR}/.gvimrc"
   link_item "${REPO_ROOT}/.gitconfig"       "${HOME_DIR}/.gitconfig"
   link_item "${REPO_ROOT}/.gitignore"       "${HOME_DIR}/.gitignore"
   link_item "${REPO_ROOT}/.tigrc"           "${HOME_DIR}/.tigrc"

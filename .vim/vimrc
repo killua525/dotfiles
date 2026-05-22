@@ -33,7 +33,9 @@ set showmatch           " Show matching brackets
 set mat=2               " How many tenths of a second to blink when matching brackets
 set noerrorbells        " No annoying sound on errors
 set novisualbell        " No visual bell
-set t_vb=               " Disable visual bell
+if exists('&t_vb')
+    set t_vb=           " Disable visual bell in Vim
+endif
 set tm=500              " Timeout for key codes
 
 " => Colors and Fonts
@@ -53,7 +55,9 @@ endif
 " Encoding settings (crucial for cross-platform compatibility)
 set encoding=utf-8
 set fileencodings=utf-8,gbk,gb18030,latin1 " Robust file encoding detection
-set termencoding=utf-8
+if exists('&termencoding')
+    set termencoding=utf-8
+endif
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -84,7 +88,9 @@ set cmdheight=2
 set tags=./.tags;,.tags " Tags file search path
 
 " Terminal settings
-set t_ti= t_te=         " Reserve file content on screen (useful for tmux/screen)
+if exists('&t_ti') && exists('&t_te')
+    set t_ti= t_te=     " Reserve file content on screen (useful for tmux/screen)
+endif
 set completeopt-=preview " Disable preview window for completion
 filetype indent on      " Enable filetype-specific indenting
 

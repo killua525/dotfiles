@@ -2,7 +2,9 @@
 
 Repo notes:
 
-* `.vim/` is the Vim runtime/config directory.
+* `.vim/` is the shared Vim runtime/config directory.
+* `.vimrc`, `.gvimrc`, and `config/nvim/init.vim` are entry points for Vim,
+  MacVim/gVim, and Neovim.
 * tig uses `.tigrc` in your home directory.
 * WSL2 uses the Linux setup path.
 * The top-level `bootstrap.sh` is the older rsync-based installer. Prefer
@@ -21,6 +23,8 @@ targets as `.bakN` before replacing them.
 
 Home-directory links:
 
+* `.vimrc`            -> `~/.vimrc`
+* `.gvimrc`           -> `~/.gvimrc`
 * `.gitconfig`         -> `~/.gitconfig`
 * `.gitignore`         -> `~/.gitignore`
 * `.tigrc`             -> `~/.tigrc`
@@ -31,6 +35,9 @@ Home-directory links:
 XDG config links:
 
 * `config/*`           -> `~/.config/*`
+
+This includes `config/nvim/init.vim`, so Neovim loads the same shared config
+through `~/.config/nvim/init.vim`.
 
 Shell startup files such as `.bash_profile`, `.aliases`, `.exports`, and
 `.functions` are kept in the repository but are not linked by
@@ -44,6 +51,7 @@ and falls back to copying when Windows does not allow link creation.
 * Repo `.vim` directory -> `%USERPROFILE%\vimfiles`
 * `tools/windows/_vimrc`  -> `%USERPROFILE%\_vimrc`
 * `tools/windows/_gvimrc` -> `%USERPROFILE%\_gvimrc`
+* `config\nvim` -> `%LOCALAPPDATA%\nvim`
 * `.gitconfig` -> `%USERPROFILE%\.gitconfig` (Git for Windows reads it)
 * `.gitignore` -> `%USERPROFILE%\.gitignore`
 * `.tigrc`     -> `%USERPROFILE%\.tigrc` (useful if you run tig under MSYS2/Git Bash)

@@ -7,8 +7,11 @@ let s:has_leaderf_popup = has('nvim-0.5.0') || has('patch-8.1.1615')
 let s:has_vim_go_support = has('nvim-0.4.0') || has('patch-8.2.5072')
 let s:has_echodoc_support = v:version > 704 || v:version == 704 && has('patch774')
 let s:has_ackprg = executable('rg') || executable('ag') || executable('ack') || executable('ack-grep')
+let s:vim_dir = get(g:, 'dotfiles_vim_dir', expand('~/.vim'))
+let s:nvim_data_dir = exists('*stdpath') ? stdpath('data') : expand('~/.local/share/nvim')
+let s:plug_dir = has('nvim') ? s:nvim_data_dir . '/plugged' : s:vim_dir . '/plugged'
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(s:plug_dir)
 if s:has_python
   Plug 'SirVer/ultisnips', { 'for' : ['cpp','go','markdown'] } " snip engine
   Plug 'honza/vim-snippets', { 'for' : ['cpp','go','markdown'] } " snip
@@ -127,7 +130,7 @@ if s:has_python
   let g:UltiSnipsListSnippets='<c-l>'
   let g:UltiSnipsSnippetDirectories=['mysnippets','UltiSnips']
   let g:UltiSnipsEditSplit='vertical'
-  let g:UltiSnipsSnippetsDir=$HOME.'/.vim/mysnippets'
+  let g:UltiSnipsSnippetsDir=s:vim_dir.'/mysnippets'
 endif
 
 
