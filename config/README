@@ -4,8 +4,8 @@ tmux prefix和vim的Leader类似默认prefix 是CTRL+b
 
 ###  使用session
 
-` tmux new -s jzdxeb ` 新建 jzdxeb 会话
-` tmux a -t  jzdxeb ` 进入jzdxeb 会话
+` tmux new -s work ` 新建 work 会话
+` tmux a -t work ` 进入 work 会话
 ` tmux ls ` 查看已打开的会话
 
 ### 屏幕
