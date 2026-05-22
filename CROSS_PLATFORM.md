@@ -85,6 +85,7 @@ powershell -ExecutionPolicy Bypass -File tools\windows\setup.ps1
 ## Update only
 
 ```bash
+cd ~/.dotfiles 2>/dev/null || cd ~/dotfiles
 ./tools/update.sh
 ```
 

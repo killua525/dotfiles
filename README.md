@@ -34,8 +34,9 @@ cd ~/dotfiles
 To update an existing checkout:
 
 ```bash
-cd ~/dotfiles
+cd ~/.dotfiles 2>/dev/null || cd ~/dotfiles
 ./tools/update.sh
+./tools/bootstrap.sh
 ```
 
 ## Structure
