@@ -1,41 +1,56 @@
-
 # My Dotfiles
 
-My personal development environment configurations for macOS, Linux (including WSL2), and Windows.
-
-![image](httpshttps://user-images.githubusercontent.com/19486826/152653219-b515e4f7-3b6b-4375-802c-471249e0573e.png)
+Personal development environment configurations for macOS, Linux, WSL2, and
+Windows.
 
 ## Features
 
-- **Cross-Platform**: Works seamlessly on macOS, Linux (including WSL2), and Windows (via Git Bash).
-- **Vim**: A powerful, customized Vim setup with YouCompleteMe for C++ and more.
-- **Git & Tig**: Optimized Git configuration and Tig for repository browsing.
-- **Shell**: Includes `kube-ps1` for clear Kubernetes context display in the prompt.
+- Cross-platform setup for macOS, Linux, WSL2, and Windows.
+- Vim runtime configuration and plugins.
+- Git, tig, and tmux configuration.
+- Selected XDG config files, including `kube-ps1`.
 
-## Quick Install
+## Quick install
 
-Run the following command in your terminal. It will automatically clone the repository to `~/dotfiles` and start the setup process.
+The top-level `install.sh` detects the platform and delegates to the matching
+setup script.
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/killua525/dotfiles/master/install.sh)"
 ```
 
-## Structure
+## Manual install
 
-- `~/.dotfiles`: The home for this repository.
-- `tools/`: Contains all installation and management scripts.
-- `config/`: Holds modular configurations for tools like `kube-ps1`.
-- `tools/`: Contains platform-specific helper tools (e.g., for Windows).
-- `gitconfig`, `gitignore`, `tigrc`, `tmux.conf`, `tmux-theme.conf`: Top-level configuration files.
-- `.vim/`: All Vim-related configurations and plugins.
-
-## WSL2
-
-WSL2 is treated as Linux. Run the Linux setup inside your WSL2 distro:
+The current macOS/Linux/WSL2 installer links files from this repository into
+your home directory and backs up existing targets as `.bakN` before replacing
+them.
 
 ```bash
 git clone https://github.com/killua525/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./tools/update.sh
 ./tools/bootstrap.sh
 ```
+
+To update an existing checkout:
+
+```bash
+cd ~/dotfiles
+./tools/update.sh
+```
+
+## Structure
+
+- `~/.dotfiles` or `~/dotfiles`: the repository checkout.
+- `install.sh`: platform dispatcher for macOS, Linux, WSL2, and Windows Git Bash.
+- `tools/`: installation and update scripts.
+- `tools/windows/`: Windows gVim entry files and PowerShell setup script.
+- `config/`: XDG configuration files linked into `~/.config`.
+- `.vim/`: Vim runtime configuration.
+
+See [CROSS_PLATFORM.md](CROSS_PLATFORM.md) for full setup details.
+
+## Legacy installer
+
+The top-level `bootstrap.sh` is the older rsync-based installer. Prefer
+`tools/bootstrap.sh` for new macOS/Linux/WSL2 setups because it creates
+symlinks instead of copying files into `$HOME`.
