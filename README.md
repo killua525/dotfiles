@@ -51,8 +51,8 @@ cd ~/dotfiles
 
 See [CROSS_PLATFORM.md](CROSS_PLATFORM.md) for full setup details.
 
-## Legacy installer
+## Installer compatibility
 
-The top-level `bootstrap.sh` is the older rsync-based installer. Prefer
-`tools/bootstrap.sh` for new macOS/Linux/WSL2 setups because it creates
-symlinks instead of copying files into `$HOME`.
+The top-level `bootstrap.sh` is a compatibility wrapper for
+`tools/bootstrap.sh`. Both install paths create links instead of copying config
+files into `$HOME`.

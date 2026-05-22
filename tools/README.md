@@ -2,7 +2,7 @@
 
 ## macOS/Linux
 
-* `bootstrap.sh` — symlink supported dotfiles into `$HOME`, including Vim/MacVim/gVim entry points, and back up existing targets as `.bakN`
+* `bootstrap.sh` — symlink supported dotfiles into `$HOME`, including Vim/MacVim/gVim entry points, and back up existing targets as `.bakN`; no config files are copied
 * `update.sh` — git update (`pull --rebase --autostash`)
 
 ## Windows

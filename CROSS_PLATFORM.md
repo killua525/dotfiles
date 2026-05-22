@@ -7,8 +7,8 @@ Repo notes:
   MacVim/gVim, and Neovim.
 * tig uses `.tigrc` in your home directory.
 * WSL2 uses the Linux setup path.
-* The top-level `bootstrap.sh` is the older rsync-based installer. Prefer
-  `tools/bootstrap.sh` for new macOS/Linux/WSL2 setups.
+* The top-level `bootstrap.sh` is a compatibility wrapper for
+  `tools/bootstrap.sh`.
 
 This repo provides cross-platform bootstrap scripts:
 
@@ -45,8 +45,9 @@ Shell startup files such as `.bash_profile`, `.aliases`, `.exports`, and
 
 ## What will be installed (Windows + gVim)
 
-`tools/windows/setup.ps1` updates the checkout, then links files where possible
-and falls back to copying when Windows does not allow link creation.
+`tools/windows/setup.ps1` updates the checkout, then creates links. Directory
+targets use symlinks when possible and junctions as a link fallback. Config
+files are not copied.
 
 * Repo `.vim` directory -> `%USERPROFILE%\vimfiles`
 * `tools/windows/_vimrc`  -> `%USERPROFILE%\_vimrc`

@@ -1,53 +1,73 @@
 Param(
-  [string]$RepoDir = "$HOME\dotfiles"
+  [string]$RepoDir = "$HOME\dotfiles",
+  [switch]$Help
 )
 
 $ErrorActionPreference = "Stop"
 
 function Say([string]$msg) { Write-Host $msg }
 
+function Usage() {
+  @"
+Usage: powershell -ExecutionPolicy Bypass -File tools\windows\setup.ps1 [-RepoDir PATH]
+
+Install dotfiles by linking repository files into the Windows user profile.
+Directory targets use symlinks when possible and junctions as a link fallback.
+No config files are copied.
+"@ | Write-Host
+}
+
+if ($Help) {
+  Usage
+  exit 0
+}
+
 function Backup-IfExists([string]$Path) {
   if (Test-Path $Path) {
     $n = 0
     while (Test-Path "$Path.bak$n") { $n++ }
-    Say "[backup] $Path -> $Path.bak$n"
-    Move-Item -Force $Path "$Path.bak$n"
+    $backup = "$Path.bak$n"
+    Say "[backup] $Path -> $backup"
+    Move-Item -Force $Path $backup
+    return $backup
+  }
+  return $null
+}
+
+function Restore-Backup([string]$Path, [string]$Backup) {
+  if ($Backup -and (Test-Path $Backup) -and -not (Test-Path $Path)) {
+    Move-Item -Force $Backup $Path
+    Say "[restore] $Backup -> $Path"
   }
 }
 
 function Try-Link([string]$Src, [string]$Dst) {
+  $backup = $null
   try {
-    Backup-IfExists $Dst
+    $backup = Backup-IfExists $Dst
     New-Item -ItemType SymbolicLink -Path $Dst -Target $Src | Out-Null
     Say "[link] $Dst -> $Src"
     return $true
   } catch {
+    Restore-Backup $Dst $backup
     return $false
   }
 }
 
 function Try-Junction([string]$Src, [string]$Dst) {
+  $backup = $null
   try {
-    Backup-IfExists $Dst
+    $backup = Backup-IfExists $Dst
     New-Item -ItemType Junction -Path $Dst -Target $Src | Out-Null
     Say "[junction] $Dst -> $Src"
     return $true
   } catch {
+    Restore-Backup $Dst $backup
     return $false
   }
 }
 
-function Copy-Any([string]$Src, [string]$Dst) {
-  Backup-IfExists $Dst
-  if (Test-Path $Src -PathType Container) {
-    Copy-Item -Recurse -Force $Src $Dst
-  } else {
-    Copy-Item -Force $Src $Dst
-  }
-  Say "[copy] $Dst <= $Src"
-}
-
-function Link-Or-Copy([string]$Src, [string]$Dst) {
+function Link-Item([string]$Src, [string]$Dst) {
   if (-not (Test-Path $Src)) {
     Say "[skip] missing in repo: $Src"
     return
@@ -59,7 +79,8 @@ function Link-Or-Copy([string]$Src, [string]$Dst) {
   if (Test-Path $Src -PathType Container) {
     if (Try-Junction $Src $Dst) { return }
   }
-  Copy-Any $Src $Dst
+
+  throw "Unable to create link for $Dst. Enable Developer Mode or run PowerShell as Administrator."
 }
 
 function Assert-Cmd([string]$cmd) {
@@ -93,13 +114,13 @@ if (-not $localAppData) {
 Say "[info] repo: $repo"
 Say "[info] home: $home"
 
-Link-Or-Copy (Join-Path $repo ".gitconfig") (Join-Path $home ".gitconfig")
-Link-Or-Copy (Join-Path $repo ".gitignore") (Join-Path $home ".gitignore")
-Link-Or-Copy (Join-Path $repo ".tigrc")     (Join-Path $home ".tigrc")
+Link-Item (Join-Path $repo ".gitconfig") (Join-Path $home ".gitconfig")
+Link-Item (Join-Path $repo ".gitignore") (Join-Path $home ".gitignore")
+Link-Item (Join-Path $repo ".tigrc")     (Join-Path $home ".tigrc")
 
-Link-Or-Copy (Join-Path $repo ".vim") (Join-Path $home "vimfiles")
-Link-Or-Copy (Join-Path $repo "tools\windows\_vimrc")  (Join-Path $home "_vimrc")
-Link-Or-Copy (Join-Path $repo "tools\windows\_gvimrc") (Join-Path $home "_gvimrc")
-Link-Or-Copy (Join-Path $repo "config\nvim") (Join-Path $localAppData "nvim")
+Link-Item (Join-Path $repo ".vim") (Join-Path $home "vimfiles")
+Link-Item (Join-Path $repo "tools\windows\_vimrc")  (Join-Path $home "_vimrc")
+Link-Item (Join-Path $repo "tools\windows\_gvimrc") (Join-Path $home "_gvimrc")
+Link-Item (Join-Path $repo "config\nvim") (Join-Path $localAppData "nvim")
 
 Say "Done."

@@ -7,6 +7,17 @@ HOME_DIR="${HOME}"
 
 say() { printf '%s\n' "$*"; }
 
+usage() {
+  cat <<'EOF'
+Usage: ./tools/bootstrap.sh [--help]
+
+Install dotfiles by linking repository files into $HOME.
+
+Existing targets are backed up as .bakN before links are created. No config
+files are copied.
+EOF
+}
+
 backup_if_exists() {
   local dst="$1"
   if [[ -L "$dst" || -e "$dst" ]]; then
@@ -72,6 +83,20 @@ install_xdg_config() {
 }
 
 main() {
+  case "${1:-}" in
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    "")
+      ;;
+    *)
+      printf 'Unknown option: %s\n\n' "$1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+
   say "[info] repo: ${REPO_ROOT}"
   say "[info] home: ${HOME_DIR}"
   install_home_links

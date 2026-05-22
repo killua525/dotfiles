@@ -1,41 +1,31 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-cd "$(dirname "${BASH_SOURCE}")";
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-function doIt() {
-	rsync --exclude ".git/" \
-		--exclude ".DS_Store" \
-		--exclude ".osx" \
-		--exclude "bootstrap.sh" \
-		--exclude "README.md" \
-		--exclude "LICENSE" \
-		--exclude "brew.sh" \
-		--exclude "config" \
-		--exclude ".vim" \  # Exclude .vim from general rsync, it will be symlinked
-		-avh --no-perms . ~;
+usage() {
+  cat <<'EOF'
+Usage: ./bootstrap.sh [--help]
 
-	# Link .vim directory to ~/.vim for plugins and other runtime files
-	if [ -d ".vim" ]; then
-		echo "Linking ~/.vim -> ${PWD}/.vim"
-		rm -rf ~/.vim # Remove existing directory or symlink
-		ln -s "${PWD}/.vim" ~/.vim
-	fi
+Install dotfiles by linking repository files into $HOME.
 
-	# 同步 config 目录到 ~/.config (如果存在)
-	if [ -d "config" ]; then
-		mkdir -p ~/.config
-		rsync -avh --no-perms config/ ~/.config/
-	fi
-	source ~/.bash_profile;
+This wrapper delegates to tools/bootstrap.sh. Existing targets are backed up as
+.bakN before links are created.
+EOF
 }
 
-if [ "$1" == "--force" -o "$1" == "-f" ]; then
-	doIt;
-else
-	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
-	echo "";
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		doIt;
-	fi;
-fi;
-unset doIt;
+case "${1:-}" in
+  -h|--help)
+    usage
+    exit 0
+    ;;
+  "")
+    ;;
+  *)
+    printf 'Unknown option: %s\n\n' "$1" >&2
+    usage >&2
+    exit 2
+    ;;
+esac
+
+exec bash "${SCRIPT_DIR}/tools/bootstrap.sh"
