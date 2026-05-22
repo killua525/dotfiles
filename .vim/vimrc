@@ -41,7 +41,7 @@ set tm=500              " Timeout for key codes
 " => Colors and Fonts
 syntax enable           " Enable syntax highlighting
 set background=dark     " Set background to dark
-colorscheme peaksea     " Use peaksea colorscheme
+colorscheme slate       " Use a neutral built-in colorscheme
 set colorcolumn=81      " Highlight column 81
 
 " Enable true colors in modern terminals if supported
